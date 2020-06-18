@@ -1,0 +1,19 @@
+{
+  "name": "fec-reservation-component",
+  "version": "1.0.0",
+  "description": "This is a reservation component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Danger/FEC-Reservation-Component.git"
+  },
+  "author": "Will Park",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Danger/FEC-Reservation-Component/issues"
+  },
+  "homepage": "https://github.com/Team-Danger/FEC-Reservation-Component#readme"
+}
