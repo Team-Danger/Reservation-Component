@@ -4,7 +4,7 @@
   "description": "This is a reservation component",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "node ./database/seed.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/Team-Danger/FEC-Reservation-Component/issues"
   },
-  "homepage": "https://github.com/Team-Danger/FEC-Reservation-Component#readme"
+  "homepage": "https://github.com/Team-Danger/FEC-Reservation-Component#readme",
+  "dependencies": {
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.19"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.0",
+    "eslint-plugin-react": "^7.20.0"
+  }
 }
