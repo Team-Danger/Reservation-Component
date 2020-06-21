@@ -1,27 +1,39 @@
 {
   "name": "fec-reservation-component",
   "version": "1.0.0",
-  "description": "This is a reservation component",
+  "description": "This is the reservation component for the FEC project",
   "main": "index.js",
   "scripts": {
-    "seed": "node ./database/seed.js"
+    "seed": "node ./database/seed.js",
+    "test": "jest --forceExit --detectOpenHandles",
+    "api-call": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Team-Danger/FEC-Reservation-Component.git"
   },
-  "author": "Will Park",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Team-Danger/FEC-Reservation-Component/issues"
   },
   "homepage": "https://github.com/Team-Danger/FEC-Reservation-Component#readme",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.19"
   },
   "devDependencies": {
-    "eslint": "^7.3.0",
-    "eslint-plugin-react": "^7.20.0"
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-jsx-a11y": "^6.3.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
+    "jest": "^26.0.1",
+    "supertest": "^4.0.2"
   }
 }
