@@ -1,5 +1,7 @@
 const request = require('supertest');
 const _ = require('lodash');
+const regeneratorRuntime = require('regenerator-runtime');
+
 const app = require('../server/app.js');
 
 describe('API GET Request Unit Test ', () => {

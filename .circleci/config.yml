@@ -8,13 +8,15 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run seed
+      - run: npm run api-call
+      - run: npm run webpack
   test:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
       - run: npm install
-      - run: npm run test
+      - run: npm test
 workflows:
   build_and_test:
     jobs:

@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+
+const DIST_DIR = path.join(__dirname, '..', 'client', 'dist');
 
 const Listings = require('../database/Listing.js');
 
@@ -8,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(`${__dirname}/../react-client/dist`));
+app.use(express.static(DIST_DIR));
 
 app.get('/api/:id/', (req, res) => {
   const targetId = req.params.id;
