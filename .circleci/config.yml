@@ -13,7 +13,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: npm test
+      - run: npm run test
 workflows:
   build_and_test:
     jobs:
