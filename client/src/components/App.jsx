@@ -1,12 +1,12 @@
-import React from 'react';
+// import React from 'react';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
 
-    this.state = {
-    };
-  }
-}
+//     this.state = {
+//     };
+//   }
+// }
 
-export default App;
+// export default App;
