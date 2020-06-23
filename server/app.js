@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(`${__dirname}/../react-client/dist`));
 
 app.get('/api/:id/', (req, res) => {
   const targetId = req.params.id;
