@@ -53,7 +53,8 @@ const generateMockData = (listing) => {
                         + mockData.guests.children
                         + mockData.guests.infants;
   mockData.open_dates = generateRandomDatesArr();
-  mockData.price = generateRandomNum(30, 250);
+  mockData.price = generateRandomNum(30, 170)
+                 * (mockData.guests.adults + mockData.guests.children / 2);
   mockData.review = generateRandomNum(0, 5);
 
   return mockData;

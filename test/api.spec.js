@@ -1,8 +1,38 @@
 const request = require('supertest');
-const app = require('../server/index.js');
+const _ = require('lodash');
+const app = require('../server/app.js');
 
 describe('API GET Request Unit Test ', () => {
-  test('It should respond with an array of students', async () => {
+  it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
+    const responseOne = await request(app).get('/api/001');
+    const responseTen = await request(app).get('/api/010');
+    const responseHundred = await request(app).get('/api/100');
+
+    expect(responseOne.status).toBe(200);
+    expect(responseTen.status).toBe(200);
+    expect(responseHundred.status).toBe(200);
+
+    expect(typeof responseOne.body).toBe('object');
+    expect(typeof responseTen.body).toBe('object');
+    expect(typeof responseHundred.body).toBe('object');
+
+    expect(_.isEmpty(responseOne.body)).toBe(false);
+    expect(_.isEmpty(responseTen.body)).toBe(false);
+    expect(_.isEmpty(responseHundred.body)).toBe(false);
+  });
+
+  it('Should return 204 and empty response when GET request is made with invalid request params', async () => {
+    const invalidResponseNum = await request(app).get('/api/1');
+    const invalidResponseStr = await request(app).get('/api/HelloWorld');
+
+    expect(invalidResponseNum.status).toBe(204);
+    expect(invalidResponseStr.status).toBe(204);
+
+    expect(_.isEmpty(invalidResponseNum.body)).toBe(true);
+    expect(_.isEmpty(invalidResponseStr.body)).toBe(true);
+  });
+
+  it('Should return valid response when valid GET request is made', async () => {
     const responseOne = await request(app).get('/api/001');
     const responseTen = await request(app).get('/api/010');
     const responseHundred = await request(app).get('/api/100');

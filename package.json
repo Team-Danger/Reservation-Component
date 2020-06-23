@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "seed": "node ./database/seed.js",
-    "test": "jest --forceExit --detectOpenHandles",
-    "api-call": "node ./server/index.js"
+    "test": "jest",
+    "test-open": "jest --forceExit --detectOpenHandles",
+    "api-call": "node ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "@shelf/jest-mongodb": "^1.1.5",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "lodash": "^4.17.15",
     "moment": "^2.27.0",
     "mongoose": "^5.9.19"
   },

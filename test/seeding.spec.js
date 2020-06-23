@@ -68,15 +68,15 @@ describe('Seeded Mock Data Unit Test', () => {
     const listingNinetySeven = generateMockData(97);
 
     expect(typeof listingSeven.price).toBe('number');
-    expect(listingSeven.price).toBeLessThanOrEqual(250);
+    expect(listingSeven.price).toBeLessThanOrEqual(765);
     expect(listingSeven.price).toBeGreaterThanOrEqual(30);
 
     expect(typeof listingFiftySeven.price).toBe('number');
-    expect(listingFiftySeven.price).toBeLessThanOrEqual(250);
+    expect(listingFiftySeven.price).toBeLessThanOrEqual(765);
     expect(listingFiftySeven.price).toBeGreaterThanOrEqual(30);
 
     expect(typeof listingNinetySeven.price).toBe('number');
-    expect(listingNinetySeven.price).toBeLessThanOrEqual(250);
+    expect(listingNinetySeven.price).toBeLessThanOrEqual(765);
     expect(listingNinetySeven.price).toBeGreaterThanOrEqual(30);
   });
 

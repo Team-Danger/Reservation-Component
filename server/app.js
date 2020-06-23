@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const Listings = require('../database/Listing.js');
 
 const app = express();
-const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,20 +12,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/:id/', (req, res) => {
   const targetId = req.params.id;
-  // console.log('Request for ', targetId);
   Listings.findOne({ listing_id: targetId })
-    .exec((err, listing) => {
-      if (err) {
-        // console.log(err);
-        res.stats(500).send(err);
+    .exec()
+    .then((listing) => {
+      if (listing === null) {
+        res.status(204).send();
       } else {
-        res.send(listing);
+        res.status(200).send(listing);
       }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
-});
-
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
 });
 
 module.exports = app;

@@ -1,6 +1,7 @@
 /* eslint-disable comma-dangle */
 const mongoose = require('mongoose');
 const db = require('./index.js');
+
 mongoose.Promise = global.Promise;
 
 const listingSchema = new mongoose.Schema({
