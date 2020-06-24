@@ -1,5 +1,4 @@
 const assert = require('assert');
-const db = require('../database/index.js');
 const Listing = require('../database/Listing.js');
 const generateMockData = require('../database/seed.js');
 
