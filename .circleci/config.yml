@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run seed
       - run: npm run api-call
       - run: npm run webpack
   test:

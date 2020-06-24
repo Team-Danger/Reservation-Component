@@ -6,6 +6,7 @@ const app = require('../server/app.js');
 
 describe('API GET Request Unit Test ', () => {
   it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
+    jest.setTimeout(30000);
     const responseOne = await request(app).get('/api/001');
     const responseTen = await request(app).get('/api/010');
     const responseHundred = await request(app).get('/api/100');
@@ -24,6 +25,7 @@ describe('API GET Request Unit Test ', () => {
   });
 
   it('Should return 204 and empty response when GET request is made with invalid request params', async () => {
+    jest.setTimeout(30000);
     const invalidResponseNum = await request(app).get('/api/1');
     const invalidResponseStr = await request(app).get('/api/HelloWorld');
 
