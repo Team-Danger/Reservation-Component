@@ -1,0 +1,30 @@
+
+.month {
+  text-align: center;
+}
+
+.calendars {
+
+  position: relative;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: row;
+
+  align-content: center;
+}
+
+.right-calendar {
+  max-width: 1120px;
+  padding-left: 20px;
+  transform: translateX(0px);
+}
+
+
+td {
+  width: 70px;
+  height: 70px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  text-align: center;
+}

@@ -15,6 +15,7 @@ app.use(express.static(DIST_DIR));
 
 app.get('/api/:id/', (req, res) => {
   const targetId = req.params.id;
+  // console.log(targetId);
   Listings.findOne({ listing_id: targetId })
     .exec()
     .then((listing) => {

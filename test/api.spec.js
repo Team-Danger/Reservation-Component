@@ -1,6 +1,6 @@
 const request = require('supertest');
 const _ = require('lodash');
-const regeneratorRuntime = require('regenerator-runtime');
+require('regenerator-runtime'); // polyfill is depricated, use regenerator-runtime
 
 const app = require('../server/app.js');
 

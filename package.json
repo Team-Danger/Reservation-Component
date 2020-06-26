@@ -7,8 +7,9 @@
     "seed": "node ./database/seed.js",
     "test": "jest",
     "test-open": "jest --forceExit --detectOpenHandles",
-    "api-call": "node ./server/server.js",
-    "webpack": "webpack"
+    "api": "node ./server/server.js",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/Team-Danger/FEC-Reservation-Component#readme",
   "dependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
@@ -30,7 +32,8 @@
     "mongoose": "^5.9.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "regenerator-runtime": "^0.13.5"
+    "regenerator-runtime": "^0.13.5",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
