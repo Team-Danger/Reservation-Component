@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2020: true,
+    es6: true,
     node: true,
   },
   extends: [
@@ -18,6 +18,8 @@ module.exports = {
   plugins: [
     'react',
   ],
+  ignorePatterns: ['client/dist/*', 'node_modules/*'],
   rules: {
+    "react/destructuring-assignment": [<enabled>, 'always']
   },
 };
