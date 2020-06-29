@@ -25,9 +25,19 @@ app.get('/api/:id/', (req, res) => {
         res.status(200).send(listing);
       }
     })
-    .catch((err) => {
-      res.status(500).send(err);
+    .catch((error) => {
+      res.status(500).send(error);
     });
 });
 
+app.put('api/:id/', (req, res) => {
+  const targetId = req.params.id;
+
+  Listings.updateOne({ listing_id: targetId })
+    .exec()
+    .then(res.status(201).send())
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 module.exports = app;

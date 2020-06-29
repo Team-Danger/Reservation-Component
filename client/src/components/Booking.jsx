@@ -1,7 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/extensions */
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
@@ -70,6 +66,16 @@ class Booking extends React.Component {
       .catch((err) => {
         console.log('Error Fetching Data: ', err);
       });
+  }
+
+  sendReservationInfo() {
+    axios.post(`/api/${listingID}`)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   render() {
