@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database/index.js');
 
 const DIST_DIR = path.join(__dirname, '..', 'client', 'dist');
 
@@ -16,14 +15,14 @@ app.use(express.static(DIST_DIR));
 
 app.get('/api/:id/', (req, res) => {
   const targetId = req.params.id;
-  // console.log(targetId);
   Listings.findOne({ listing_id: targetId })
-    .exec()
+    // .exec()
     .then((listing) => {
       if (listing === null) {
         res.status(204).send();
       } else {
         res.status(200).send(listing);
+        console.log(listing);
       }
     })
     .catch((error) => {
@@ -33,7 +32,6 @@ app.get('/api/:id/', (req, res) => {
 
 app.put('api/:id/', (req, res) => {
   const targetId = req.params.id;
-
   Listings.updateOne({ listing_id: targetId })
     .exec()
     .then(res.status(201).send())
