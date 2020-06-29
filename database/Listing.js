@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-
 const listingSchema = new mongoose.Schema({
   listing_id: String,
   guests: {

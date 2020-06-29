@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-require('../database/index.js');
+const db = require('../database/index.js');
 
 const DIST_DIR = path.join(__dirname, '..', 'client', 'dist');
 
@@ -41,4 +41,5 @@ app.put('api/:id/', (req, res) => {
       res.status(500).send(error);
     });
 });
+
 module.exports = app;
