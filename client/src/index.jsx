@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import Calendar from './components/Calendar.jsx';
+import Booking from './components/Booking.jsx';
 
 ReactDOM.render(
-  <App listingID="001" />, document.getElementById('app'),
+  <div className="booking-combined">
+    <Calendar listingID="025" />
+    <Booking listingID="025" />
+  </div>,
+  document.getElementById('booking-component'),
 );
