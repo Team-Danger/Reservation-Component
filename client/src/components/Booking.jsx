@@ -12,6 +12,7 @@ class Booking extends React.Component {
     super(props);
     this.state = {
       pricePerNight: '',
+      price: 0,
       guests: {
         total: 1,
         adults: 1,
@@ -24,16 +25,15 @@ class Booking extends React.Component {
       checkOutDate: '',
       currentDate: moment(new Date()),
     };
-    this.guestsInputHandler = this.guestsInputHandler.bind(this);
+    this.guestsAndPriceInfoHandler = this.guestsAndPriceInfoHandler.bind(this);
     this.checkInOutDatesHandler = this.checkInOutDatesHandler.bind(this);
   }
 
   componentDidMount() {
-    // console.log('This is currentDate from App.js', this.state.currentDate)
     this.fetchDatesForSelectedListingID();
   }
 
-  guestsInputHandler(adults, children, infants) {
+  guestsAndPriceInfoHandler(adults, children, infants) {
     this.setState({
       guests: {
         total: adults + children + infants,
@@ -41,6 +41,7 @@ class Booking extends React.Component {
         children,
         infants,
       },
+      price: this.state.pricePerNight * (adults + children / 2),
     });
   }
 
@@ -83,7 +84,7 @@ class Booking extends React.Component {
       <div className="sticky-box">
         <div className="sticky-box-static-top">
           <div className="price">
-            <Price price={this.state.pricePerNight} />
+            <Price price={this.state.price} />
           </div>
           <div className="review">
             <Review review={this.state.review} />
@@ -99,7 +100,7 @@ class Booking extends React.Component {
           </div>
 
           <div className="sticky-box-guests">
-            <Guests guestsInputHandler={this.guestsInputHandler} />
+            <Guests guestsAndPriceInfoHandler={this.guestsAndPriceInfoHandler} />
           </div>
         </div>
 

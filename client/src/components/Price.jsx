@@ -4,7 +4,7 @@ class Price extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: '',
+      price: this.props.price,
     };
   }
 
