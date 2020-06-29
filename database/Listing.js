@@ -1,6 +1,5 @@
 /* eslint-disable comma-dangle */
 const mongoose = require('mongoose');
-require('./index.js');
 
 mongoose.Promise = global.Promise;
 

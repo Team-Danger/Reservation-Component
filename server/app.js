@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+require('../database/index.js');
 
 const DIST_DIR = path.join(__dirname, '..', 'client', 'dist');
 
