@@ -18,6 +18,17 @@ test('api should respond with the right data', async () => {
       reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
     }
   });
-  const responseOne = await request(app).get('/api/001');
-  expect(responseOne.status).toBe(200);
+  const req = request(app);
+  const promises = [
+    req.get('/api/001/reservation')
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+        expect(res.text).toEqual(JSON.stringify(testListing));
+      }),
+    req.get('/api/hackreactor12345678910/reservation')
+      .then((res) => {
+        expect(res.statusCode).toBe(500);
+      }),
+  ];
+  return Promise.all(promises);
 });

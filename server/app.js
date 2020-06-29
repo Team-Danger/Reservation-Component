@@ -13,17 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(DIST_DIR));
 
-app.get('/api/:id/', (req, res) => {
-  const targetId = req.params.id;
-  Listings.findOne({ listing_id: targetId })
+app.get('/api/:id/reservation', (req, res) => {
+  Listings.findOne({ listing_id: req.params.id })
     // .exec()
     .then((listing) => {
-      if (listing === null) {
-        res.status(204).send();
-      } else {
-        res.status(200).send(listing);
-        console.log(listing);
-      }
+      res.send(listing);
     })
     .catch((error) => {
       res.status(500).send(error);
