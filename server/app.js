@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(DIST_DIR));
 
-app.get('/api/:id/reservation', (req, res) => {
+app.get('/api/reservation/:id', (req, res) => {
   Listings.findOne({ listing_id: req.params.id })
     // .exec()
     .then((listing) => {
