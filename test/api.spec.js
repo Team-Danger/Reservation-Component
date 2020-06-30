@@ -1,16 +1,16 @@
 require('babel-polyfill');
 const request = require('supertest');
+const _ = require('lodash');
 const Listing = require('../database/Listing.js');
 const generateMockData = require('../database/seed.js');
 const app = require('../server/app.js');
 
-
 describe('API GET Request Unit Test ', () => {
   it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
     jest.setTimeout(90000);
-    const responseOne = await request(app).get('/api/001');
-    const responseTen = await request(app).get('/api/010');
-    const responseHundred = await request(app).get('/api/100');
+    const responseOne = await request(app).get('/api/001/reservation');
+    const responseTen = await request(app).get('/api/010/reservation');
+    const responseHundred = await request(app).get('/api/100/reservation');
 
     expect(responseOne.status).toBe(200);
     expect(responseTen.status).toBe(200);
@@ -25,22 +25,34 @@ describe('API GET Request Unit Test ', () => {
     expect(_.isEmpty(responseHundred.body)).toBe(false);
   });
 
-  it('Should return 204 and empty response when GET request is made with invalid request params', async () => {
+  it('Should return 404 for incorrect GET with incorrect URL', async () => {
     jest.setTimeout(90000);
     const invalidResponseNum = await request(app).get('/api/1');
     const invalidResponseStr = await request(app).get('/api/HelloWorld');
 
-    expect(invalidResponseNum.status).toBe(204);
-    expect(invalidResponseStr.status).toBe(204);
+    expect(invalidResponseNum.status).toBe(404);
+    expect(invalidResponseStr.status).toBe(404);
 
     expect(_.isEmpty(invalidResponseNum.body)).toBe(true);
     expect(_.isEmpty(invalidResponseStr.body)).toBe(true);
   });
 
+  it('Should return 500 when a server error is caught', async () => {
+    jest.setTimeout(90000);
+    const invalidResponseOne = await request(app).get('/api/00000/reservation');
+    const invalidResponseTwo = await request(app).get('/api/HelloWorld/reservation');
+
+    expect(invalidResponseOne.status).toBe(500);
+    expect(invalidResponseTwo.status).toBe(500);
+
+    expect(_.isEmpty(invalidResponseOne.body)).toBe(true);
+    expect(_.isEmpty(invalidResponseTwo.body)).toBe(true);
+  });
+
   it('Should return valid response when valid GET request is made', async () => {
-    const responseOne = await request(app).get('/api/001');
-    const responseTen = await request(app).get('/api/010');
-    const responseHundred = await request(app).get('/api/100');
+    const responseOne = await request(app).get('/api/001/reservation');
+    const responseTen = await request(app).get('/api/010/reservation');
+    const responseHundred = await request(app).get('/api/100/reservation');
 
     expect(responseOne.body).toHaveProperty('listing_id');
     expect(responseOne.body).toHaveProperty('guests');
@@ -62,9 +74,9 @@ describe('API GET Request Unit Test ', () => {
   });
 
   it('Should return response with matching listing ID', async () => {
-    const responseOne = await request(app).get('/api/001');
-    const responseTen = await request(app).get('/api/010');
-    const responseHundred = await request(app).get('/api/100');
+    const responseOne = await request(app).get('/api/001/reservation');
+    const responseTen = await request(app).get('/api/010/reservation');
+    const responseHundred = await request(app).get('/api/100/reservation');
 
     expect(responseOne.body.listing_id).toBe('001');
     expect(responseTen.body.listing_id).toBe('010');
