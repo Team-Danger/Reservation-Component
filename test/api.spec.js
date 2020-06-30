@@ -1,10 +1,9 @@
+require('babel-polyfill');
 const request = require('supertest');
-const _ = require('lodash');
-require('regenerator-runtime'); // polyfill is depricated, use regenerator-runtime
-
 const Listing = require('../database/Listing.js');
-const app = require('../server/app.js');
 const generateMockData = require('../database/seed.js');
+const app = require('../server/app.js');
+
 
 test('api should respond with the right data', async () => {
   jest.setTimeout(90000);
