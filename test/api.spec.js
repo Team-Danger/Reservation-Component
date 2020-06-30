@@ -19,6 +19,11 @@ describe('API GET Request Unit Test ', () => {
       .then((res) => {
         expect(res.statusCode).toBe(200);
         expect(res.body.listing_id).toBe('001');
+        expect(res.body).toHaveProperty('listing_id');
+        expect(res.body).toHaveProperty('guests');
+        expect(res.body).toHaveProperty('open_dates');
+        expect(res.body).toHaveProperty('price');
+        expect(res.body).toHaveProperty('review');
       });
   });
 
@@ -58,7 +63,12 @@ describe('API GET Request Unit Test ', () => {
     return request(app).get('/api/100/reservation')
       .then((res) => {
         expect(res.statusCode).toBe(200);
-        expect(res.text).toEqual(JSON.stringify(testListingHundred));
+        expect(res.body.listing_id).toBe('100');
+        expect(res.body).toHaveProperty('listing_id');
+        expect(res.body).toHaveProperty('guests');
+        expect(res.body).toHaveProperty('open_dates');
+        expect(res.body).toHaveProperty('price');
+        expect(res.body).toHaveProperty('review');
       });
   });
 
@@ -72,26 +82,23 @@ describe('API GET Request Unit Test ', () => {
       expect(res.statusCode).toBe(500);
     }));
 
-  //   expect(responseTen.body).toHaveProperty('listing_id');
-  //   expect(responseTen.body).toHaveProperty('guests');
-  //   expect(responseTen.body).toHaveProperty('open_dates');
-  //   expect(responseTen.body).toHaveProperty('price');
-  //   expect(responseTen.body).toHaveProperty('review');
+  it('Should return 500 when invalid GET request with number and string is made', async () => request(app).get('/api/a45f6478y91d32az8/reservation')
+    .then((res) => {
+      expect(res.statusCode).toBe(500);
+    }));
 
-  //   expect(responseHundred.body).toHaveProperty('listing_id');
-  //   expect(responseHundred.body).toHaveProperty('guests');
-  //   expect(responseHundred.body).toHaveProperty('open_dates');
-  //   expect(responseHundred.body).toHaveProperty('price');
-  //   expect(responseHundred.body).toHaveProperty('review');
-  // });
+  it('Should return 404 when invalid GET request with unknown URL is made (test 1)', async () => request(app).get('/api/hello')
+    .then((res) => {
+      expect(res.statusCode).toBe(404);
+    }));
 
-  // it('Should return response with matching listing ID', async () => {
-  //   const responseOne = await request(app).get('/api/001/reservation');
-  //   const responseTen = await request(app).get('/api/010/reservation');
-  //   const responseHundred = await request(app).get('/api/100/reservation');
+  it('Should return 404 when invalid GET request with unknown URL is made (test 2)', async () => request(app).get('/api/123123')
+    .then((res) => {
+      expect(res.statusCode).toBe(404);
+    }));
 
-  //   expect(responseOne.body.listing_id).toBe('001');
-  //   expect(responseTen.body.listing_id).toBe('010');
-  //   expect(responseHundred.body.listing_id).toBe('100');
-  // });
+  it('Should return 404 when invalid GET request with unknown URL is made (test 3)', async () => request(app).get('/api/!@#$%')
+    .then((res) => {
+      expect(res.statusCode).toBe(404);
+    }));
 });
