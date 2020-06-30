@@ -11,6 +11,7 @@ class Guests extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
+      total: 1,
     };
     this.handleDropdownMenuClick = this.handleDropdownMenuClick.bind(this);
     this.handleAdultMinusIconClick = this.handleAdultMinusIconClick.bind(this);
@@ -28,42 +29,48 @@ class Guests extends React.Component {
     this.setState((prevState) => ({
       showDropdown: !prevState.showDropdown,
     }));
-    this.props.guestsInputHandler(this.state.adults, this.state.children, this.state.infants);
+    this.props.guestsAndPriceInfoHandler(this.state.adults, this.state.children, this.state.infants);
   }
 
   handleAdultMinusIconClick() {
     this.setState((prevState) => ({
       adults: Math.max(prevState.adults - 1, 1),
+      total: Math.max(prevState.total - 1, 1),
     }));
   }
 
   handleAdultPlusIconClick() {
     this.setState((prevState) => ({
       adults: prevState.adults + 1,
+      total: prevState.total + 1,
     }));
   }
 
   handleChildrenMinusIconClick() {
     this.setState((prevState) => ({
       children: Math.max(prevState.children - 1, 0),
+      total: Math.max(prevState.total - 1, 1),
     }));
   }
 
   handleChildrenPlusIconClick() {
     this.setState((prevState) => ({
       children: prevState.children + 1,
+      total: prevState.total + 1,
     }));
   }
 
   handleInfantsMinusIconClick() {
     this.setState((prevState) => ({
       infants: Math.max(prevState.infants - 1, 0),
+      total: Math.max(prevState.total - 1, 1),
     }));
   }
 
   handleInfantsPlusIconClick() {
     this.setState((prevState) => ({
       infants: prevState.infants + 1,
+      total: prevState.total + 1,
     }));
   }
 

@@ -20,6 +20,5 @@ module.exports = {
   ],
   ignorePatterns: ['client/dist/*', 'node_modules/*'],
   rules: {
-    "react/destructuring-assignment": [<enabled>, 'always']
   },
 };

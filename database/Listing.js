@@ -1,9 +1,7 @@
 /* eslint-disable comma-dangle */
 const mongoose = require('mongoose');
-require('./index.js');
 
 mongoose.Promise = global.Promise;
-
 const listingSchema = new mongoose.Schema({
   listing_id: String,
   guests: {

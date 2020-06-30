@@ -13,17 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(DIST_DIR));
 
-app.get('/api/:id/', (req, res) => {
-  const targetId = req.params.id;
-  // console.log(targetId);
-  Listings.findOne({ listing_id: targetId })
-    .exec()
+app.get('/api/:id/reservation', (req, res) => {
+  Listings.findOne({ listing_id: req.params.id })
+    // .exec()
     .then((listing) => {
       if (listing === null) {
-        res.status(204).send();
-      } else {
-        res.status(200).send(listing);
+        throw new Error('Error');
       }
+      res.send(listing);
     })
     .catch((error) => {
       res.status(500).send(error);
@@ -32,7 +29,6 @@ app.get('/api/:id/', (req, res) => {
 
 app.put('api/:id/', (req, res) => {
   const targetId = req.params.id;
-
   Listings.updateOne({ listing_id: targetId })
     .exec()
     .then(res.status(201).send())
@@ -40,4 +36,5 @@ app.put('api/:id/', (req, res) => {
       res.status(500).send(error);
     });
 });
+
 module.exports = app;

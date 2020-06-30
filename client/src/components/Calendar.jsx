@@ -24,7 +24,6 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('This is currentDate from App.js', this.state.currentDate)
     this.fetchDatesForSelectedListingID();
   }
 
@@ -41,8 +40,6 @@ class Calendar extends React.Component {
         console.log('Error Fetching Data: ', err);
       });
   }
-
-
 
   leftCalendarClickHandler(targetMonth, targetDate) {
     this.setState({

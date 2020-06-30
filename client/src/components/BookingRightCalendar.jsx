@@ -82,7 +82,7 @@ class RightCalendar extends React.Component {
         <div className="month">
           <div className="right-month-left-btn" />
           <h3>{moment(this.props.currentDate).add(1, 'months').format('MMMM YYYY')}</h3>
-          <IoIosArrowForward className="right-month-arrow-btn" onClick={this.props.handleArrowClick} />
+          <IoIosArrowForward className="right-month-arrow-btn" onClick={this.props.handleRightArrowClick} />
         </div>
 
         <section>
