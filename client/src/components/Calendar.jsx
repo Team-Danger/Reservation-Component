@@ -24,14 +24,15 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
+    // console.log('This is currentDate from App.js', this.state.currentDate)
     this.fetchDatesForSelectedListingID();
   }
 
   fetchDatesForSelectedListingID() {
     const { listingID } = this.props;
-    return axios.get(`/api/${listingID}`)
+    return axios.get(`/api/reservation/${listingID}`)
       .then(({ data }) => {
-        console.log('GET Request Successful: ', data);
+        // console.log('GET Request Successful: ', data);
         this.setState({
           availDates: data.open_dates,
         });
@@ -40,6 +41,8 @@ class Calendar extends React.Component {
         console.log('Error Fetching Data: ', err);
       });
   }
+
+
 
   leftCalendarClickHandler(targetMonth, targetDate) {
     this.setState({

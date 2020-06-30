@@ -12,7 +12,6 @@ class Booking extends React.Component {
     super(props);
     this.state = {
       pricePerNight: '',
-      price: 0,
       guests: {
         total: 1,
         adults: 1,
@@ -25,15 +24,16 @@ class Booking extends React.Component {
       checkOutDate: '',
       currentDate: moment(new Date()),
     };
-    this.guestsAndPriceInfoHandler = this.guestsAndPriceInfoHandler.bind(this);
+    this.guestsInputHandler = this.guestsInputHandler.bind(this);
     this.checkInOutDatesHandler = this.checkInOutDatesHandler.bind(this);
   }
 
   componentDidMount() {
+    // console.log('This is currentDate from App.js', this.state.currentDate)
     this.fetchDatesForSelectedListingID();
   }
 
-  guestsAndPriceInfoHandler(adults, children, infants) {
+  guestsInputHandler(adults, children, infants) {
     this.setState({
       guests: {
         total: adults + children + infants,
@@ -41,12 +41,11 @@ class Booking extends React.Component {
         children,
         infants,
       },
-      price: this.state.pricePerNight * (adults + children / 2),
     });
   }
 
   checkInOutDatesHandler(checkInDate, checkOutDate) {
-    console.log(checkInDate, checkOutDate);
+    // console.log(checkInDate, checkOutDate);
     this.setState({
       checkInDate,
       checkOutDate,
@@ -55,9 +54,9 @@ class Booking extends React.Component {
 
   fetchDatesForSelectedListingID() {
     const { listingID } = this.props;
-    return axios.get(`/api/${listingID}`)
+    return axios.get(`/api/reservation/${listingID}`)
       .then(({ data }) => {
-        console.log('GET Request Successful From booking: ', data);
+        // console.log('GET Request Successful From booking: ', data);
         this.setState({
           pricePerNight: data.price,
           review: data.review,
@@ -84,7 +83,7 @@ class Booking extends React.Component {
       <div className="sticky-box">
         <div className="sticky-box-static-top">
           <div className="price">
-            <Price price={this.state.price} />
+            <Price price={this.state.pricePerNight} />
           </div>
           <div className="review">
             <Review review={this.state.review} />
@@ -100,7 +99,7 @@ class Booking extends React.Component {
           </div>
 
           <div className="sticky-box-guests">
-            <Guests guestsAndPriceInfoHandler={this.guestsAndPriceInfoHandler} />
+            <Guests guestsInputHandler={this.guestsInputHandler} />
           </div>
         </div>
 

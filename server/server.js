@@ -1,7 +1,6 @@
 const app = require('./app.js');
-require('../database/index.js');
 
-const PORT = 3000;
+const PORT = 3002;
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

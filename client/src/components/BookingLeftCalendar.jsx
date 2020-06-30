@@ -20,6 +20,7 @@ class BookingLeftCalendar extends React.Component {
     const firstDay = moment(this.props.currentDate).startOf('month').day();
     const numDaysInMonth = moment(this.props.currentDate).daysInMonth();
 
+    // Avail Dates
     const thisMonth = moment(this.props.currentDate).format('MM');
     const { availDates } = this.props;
     const occupiedDates = [];
@@ -29,6 +30,7 @@ class BookingLeftCalendar extends React.Component {
       }
     }
 
+    // Generate All Number Displayed On Calendar
     const emptyCells = [];
     for (let i = 0; i < firstDay; i += 1) {
       emptyCells.push('');
