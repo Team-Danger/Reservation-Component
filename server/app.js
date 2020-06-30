@@ -15,7 +15,7 @@ app.use(express.static(DIST_DIR));
 
 app.get('/api/:id/reservation', (req, res) => {
   Listings.findOne({ listing_id: req.params.id })
-    .exec()
+    // .exec()
     .then((listing) => {
       if (listing === null) {
         throw new Error('Error');
