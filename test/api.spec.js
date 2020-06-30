@@ -4,85 +4,85 @@ const Listing = require('../database/Listing.js');
 const generateMockData = require('../database/seed.js');
 const app = require('../server/app.js');
 
-test('api should respond with the right data', async () => {
-  jest.setTimeout(90000);
-  // expect.assertions(3);
-  const testId = '001';
-  const testListing = new Listing(await generateMockData(testId));
-  Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
-    if (listing_id === testId) {
-      resolve(testListing);
-    } else {
-      reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
-    }
-  });
-  const req = request(app);
-  const promises = [
-    req.get('/api/001/reservation')
+// test('api should respond with the right data', async () => {
+//   jest.setTimeout(90000);
+//   // expect.assertions(3);
+//   const testId = '001';
+//   const testListing = new Listing(await generateMockData(testId));
+//   Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
+//     if (listing_id === testId) {
+//       resolve(testListing);
+//     } else {
+//       reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
+//     }
+//   });
+//   const req = request(app);
+//   const promises = [
+//     req.get('/api/001/reservation')
+//       .then((res) => {
+//         expect(res.statusCode).toBe(200);
+//         expect(res.text).toEqual(JSON.stringify(testListing));
+//       }),
+//     req.get('/api/hackreactor12345678910/reservation')
+//       .then((res) => {
+//         expect(res.statusCode).toBe(500);
+//       }),
+//   ];
+//   return Promise.all(promises);
+// });
+
+describe('API GET Request Unit Test ', () => {
+  it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
+    jest.setTimeout(90000);
+    const testListingOne = new Listing(await generateMockData('001'));
+    Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
+      if (listing_id === '001') {
+        resolve(testListingOne);
+      } else {
+        reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
+      }
+    });
+    return request(app).get('/api/001/reservation')
       .then((res) => {
         expect(res.statusCode).toBe(200);
-        expect(res.text).toEqual(JSON.stringify(testListing));
-      }),
-    req.get('/api/hackreactor12345678910/reservation')
+        expect(res.text).toEqual(JSON.stringify(testListingOne));
+      });
+  });
+
+  it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
+    jest.setTimeout(90000);
+    const testListingTen = new Listing(await generateMockData('010'));
+    Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
+      if (listing_id === '010') {
+        resolve(testListingTen);
+      } else {
+        reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
+      }
+    });
+    return request(app).get('/api/010/reservation')
       .then((res) => {
-        expect(res.statusCode).toBe(500);
-      }),
-  ];
-  return Promise.all(promises);
-});
+        expect(res.statusCode).toBe(200);
+        expect(res.text).toEqual(JSON.stringify(testListingTen));
+      });
+  });
 
-// describe('API GET Request Unit Test ', () => {
-//   it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
-//     jest.setTimeout(90000);
-//     const testListingOne = new Listing(await generateMockData('001'));
-//     Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
-//       if (listing_id === '001') {
-//         resolve(testListingOne);
-//       } else {
-//         reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
-//       }
-//     });
-//     return request(app).get('/api/001/reservation')
-//       .then((res) => {
-//         expect(res.statusCode).toBe(200);
-//         expect(res.text).toEqual(JSON.stringify(testListingOne));
-//       });
-//   });
+  it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
+    jest.setTimeout(90000);
+    const testListingHundred = new Listing(await generateMockData('100'));
+    Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
+      if (listing_id === '100') {
+        resolve(testListingHundred);
+      } else {
+        reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
+      }
+    });
 
-//   it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
-//     jest.setTimeout(90000);
-//     const testListingTen = new Listing(await generateMockData('010'));
-//     Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
-//       if (listing_id === '010') {
-//         resolve(testListingTen);
-//       } else {
-//         reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
-//       }
-//     });
-//     return request(app).get('/api/010/reservation')
-//       .then((res) => {
-//         expect(res.statusCode).toBe(200);
-//         expect(res.text).toEqual(JSON.stringify(testListingTen));
-//       });
-//   });
-
-//   it('Should return 200 and response when GET request is made with valid end-point and request params', async () => {
-//     jest.setTimeout(90000);
-//     const testListingHundred = new Listing(await generateMockData('100'));
-//     Listing.findOne = ({ listing_id }) => new Promise((resolve, reject) => {
-//       if (listing_id === '100') {
-//         resolve(testListingHundred);
-//       } else {
-//         reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
-//       }
-//     });
-
-//     return request(app).get('/api/100/reservation')
-//       .then((res) => {
-//         expect(res.statusCode).toBe(200);
-//         expect(res.text).toEqual(JSON.stringify(testListingHundred));
-//       });
-//   });
+    return request(app).get('/api/100/reservation')
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+        expect(res.text).toEqual(JSON.stringify(testListingHundred));
+      });
+  });
 
 
 
@@ -127,4 +127,4 @@ test('api should respond with the right data', async () => {
   //   expect(responseTen.body.listing_id).toBe('010');
   //   expect(responseHundred.body.listing_id).toBe('100');
   // });
-// });
+});
