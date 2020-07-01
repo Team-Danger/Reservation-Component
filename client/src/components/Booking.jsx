@@ -11,7 +11,7 @@ class Booking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pricePerNight: '',
+      pricePerNight: 0,
       price: 0,
       guests: {
         total: 1,
@@ -34,6 +34,7 @@ class Booking extends React.Component {
 
   guestsAndPriceInfoHandler(adults, children, infants) {
     const { pricePerNight } = this.state;
+    const { guests } = this.state;
 
     this.setState({
       guests: {
@@ -42,7 +43,9 @@ class Booking extends React.Component {
         children,
         infants,
       },
-      price: pricePerNight * (adults + children / 2),
+    });
+    this.setState({
+      price: pricePerNight * guests.total,
     });
   }
 

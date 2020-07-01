@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { IoIosArrowDown } from 'react-icons/io';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
@@ -38,45 +39,81 @@ class Guests extends React.Component {
   }
 
   handleAdultMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       adults: Math.max(prevState.adults - 1, 1),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleAdultPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       adults: prevState.adults + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleChildrenMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       children: Math.max(prevState.children - 1, 0),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleChildrenPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       children: prevState.children + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleInfantsMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       infants: Math.max(prevState.infants - 1, 0),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleInfantsPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       infants: prevState.infants + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   render() {
@@ -158,7 +195,13 @@ class Guests extends React.Component {
                   <div className="guests-dropdown-info-text">Infants don’t count toward the number of guests.</div>
                 </div>
                 <div className="guests-dropdown-close-btn-container">
-                  <button onClick={this.handleDropdownMenuClick} className="guests-dropdown-close-btn">Close</button>
+                  <button
+                    onClick={this.handleDropdownMenuClick}
+                    type="button"
+                    className="guests-dropdown-close-btn"
+                  >
+                    Close
+                  </button>
                 </div>
 
               </div>
@@ -171,5 +214,9 @@ class Guests extends React.Component {
     );
   }
 }
+
+Guests.propTypes = {
+  guestsAndPriceInfoHandler: PropTypes.func.isRequired,
+};
 
 export default Guests;
