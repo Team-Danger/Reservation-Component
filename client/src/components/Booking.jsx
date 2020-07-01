@@ -55,7 +55,7 @@ class Booking extends React.Component {
 
   fetchDatesForSelectedListingID() {
     const { listingID } = this.props;
-    return axios.get(`/api/${listingID}`)
+    return axios.get(`/api/reservation/${listingID}`)
       .then(({ data }) => {
         console.log('GET Request Successful From booking: ', data);
         this.setState({

@@ -14,18 +14,22 @@ class LeftCalendar extends React.Component {
   render() {
     const firstDay = moment(this.props.currentDate).startOf('month').day();
     const numDaysInMonth = moment(this.props.currentDate).daysInMonth();
+    const today = moment(this.props.currentDate).format('DD');
+    const thisDate = moment(this.props.currentDate).format('MMDD');
 
     // Avail Dates
-    const thisMonth = moment(this.props.currentDate).format('MM'); // 06
-    // console.log('left cal this month: ', thisMonth);
+    const thisMonth = moment(this.props.currentDate).format('MM');
     const { availDates } = this.props;
     const occupiedDates = [];
+
+    // ***************Add this month's dates up to today to occupiedDates Array***************
+
     for (let i = 0; i < availDates.length; i += 1) {
+      // console.log('This is avail dates', availDates);
       if (thisMonth === availDates[i].slice(5, 7)) {
         occupiedDates.push(Number(availDates[i].slice(-2)));
       }
     }
-    // console.log('Occupied From Left', occupiedDates);
 
     // Generate All Number Displayed On Calendar
     const emptyCells = [];

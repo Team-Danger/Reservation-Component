@@ -1,11 +1,19 @@
 .booking-combined {
   display: inline-flex;
   flex-direction: row;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+body {
+  font-family: sans-serif, Arial, Helvetica;
 }
 
 /* Main Calendar Component */
 
 .calendar-main-container {
+  max-width: 1120px;
+  position: relative;
   display: flex;
   flex-direction: column;
   border-top: 1px solid gray;
@@ -13,8 +21,8 @@
 }
 
 .calendars {
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 5%;
+  padding-bottom: 5%;
   display: flex;
   flex-direction: row;
   align-content: flex-start;
@@ -182,6 +190,7 @@ td {
   position: sticky;
   top: 20rem;
   bottom: 20rem;
+  margin-left: 5%;
 }
 
 /* Price / Review */
