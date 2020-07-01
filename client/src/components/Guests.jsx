@@ -26,10 +26,15 @@ class Guests extends React.Component {
   }
 
   handleDropdownMenuClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       showDropdown: !prevState.showDropdown,
     }));
-    this.props.guestsAndPriceInfoHandler(this.state.adults, this.state.children, this.state.infants);
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleAdultMinusIconClick() {
@@ -75,14 +80,24 @@ class Guests extends React.Component {
   }
 
   render() {
+    const { showDropdown } = this.state;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+    const { total } = this.state;
+
     return (
       <div className="guests-box">
         <div className="guests-box-header">
           GUESTS
         </div>
-        <div className="guests-box-bottom" role="button" onClick={this.handleDropdownMenuClick}>
+        <div
+          className="guests-box-bottom"
+          role="button"
+          onClick={this.handleDropdownMenuClick}
+        >
           <div className="guests-box-info">
-            {this.state.total}
+            {total}
             {' '}
             guests
           </div>
@@ -93,7 +108,7 @@ class Guests extends React.Component {
 
         </div>
         <div className="guests-dropdown-menu-container">
-          {this.state.showDropdown
+          {showDropdown
             ? (
               <div className="guests-dropdown-menu">
 
@@ -103,7 +118,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleAdultMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.adults}</div>
+                    <div className="guests-dropdown-number">{adults}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleAdultPlusIconClick} /></div>
                   </div>
                 </div>
@@ -119,7 +134,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleChildrenMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.children}</div>
+                    <div className="guests-dropdown-number">{children}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleChildrenPlusIconClick} /></div>
                   </div>
                 </div>
@@ -135,7 +150,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleInfantsMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.infants}</div>
+                    <div className="guests-dropdown-number">{infants}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleInfantsPlusIconClick} /></div>
                   </div>
                 </div>

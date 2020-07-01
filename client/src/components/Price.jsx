@@ -1,20 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Price extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: this.props.price,
     };
   }
 
   render() {
+    const { price } = this.props;
     return (
       <div className="price">
         <div className="price-info">
           $
           {' '}
-          {this.props.price}
+          {price}
         </div>
         <div>
           / night
@@ -23,5 +24,9 @@ class Price extends React.Component {
     );
   }
 }
+
+Price.propTypes = {
+  price: PropTypes.number.isRequired,
+};
 
 export default Price;

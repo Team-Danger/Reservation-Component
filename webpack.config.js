@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   entry: `${SRC_DIR}/index.jsx`,
   output: {
-    filename: 'bundle.js',
+    filename: 'reservationBundle.js',
     path: DIST_DIR,
   },
   module: {

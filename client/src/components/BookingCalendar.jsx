@@ -1,15 +1,11 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/extensions */
-/* eslint-disable react/no-unused-state */
-
 import React from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { FaRegKeyboard } from 'react-icons/fa';
-import BookingLeftCalendar from './BookingLeftCalendar.jsx';
-import BookingRightCalendar from './BookingRightCalendar.jsx';
+import BookingLeftCalendar from './BookingLeftCalendar';
+import BookingRightCalendar from './BookingRightCalendar';
 
 class BookingCalendar extends React.Component {
   constructor(props) {
@@ -18,7 +14,7 @@ class BookingCalendar extends React.Component {
       showCalendar: false,
       checkInDate: 'Add date',
       checkOutDate: 'Add date',
-      currentDate: this.props.currentDate,
+      currentDate: moment(new Date()),
     };
     this.handleOpenCalendar = this.handleOpenCalendar.bind(this);
     this.handleCloseCalendar = this.handleCloseCalendar.bind(this);
@@ -39,23 +35,28 @@ class BookingCalendar extends React.Component {
     this.setState({
       showCalendar: false,
     });
-    this.props.checkInOutDatesHandler(this.state.checkInDate, this.state.checkOutDate);
+    const { checkInOutDatesHandler } = this.props;
+    const { checkInDate } = this.state;
+    const { checkOutDate } = this.state;
+
+    checkInOutDatesHandler(checkInDate, checkOutDate);
   }
 
-  leftCalendarClickHandler(targetMonth, targetDate) {
+  leftCalendarClickHandler(targetMonth, targetDateInput) {
+    let targetDate = targetDateInput;
     if (targetDate < 10) {
-      targetDate = '0' + targetDate;
+      targetDate = `0${targetDate}`;
     }
     const thisYear = moment(new Date()).format('YYYY');
     this.setState({
       checkInDate: `${thisYear}-${targetMonth}-${targetDate}`,
     });
-    console.log('Whats being logged', `${thisYear}-${targetMonth}-${targetDate}`);
   }
 
-  rightCalendarClickHandler(targetMonth, targetDate) {
+  rightCalendarClickHandler(targetMonth, targetDateInput) {
+    let targetDate = targetDateInput;
     if (targetDate < 10) {
-      targetDate = '0' + targetDate;
+      targetDate = `0${targetDate}`;
     }
     const thisYear = moment(new Date()).format('YYYY');
     this.setState({
@@ -65,14 +66,18 @@ class BookingCalendar extends React.Component {
   }
 
   handleRightArrowClick() {
+    const { currentDate } = this.state;
+
     this.setState({
-      currentDate: this.props.currentDate.add(1, 'months'),
+      currentDate: currentDate.add(1, 'months'),
     });
   }
 
   handleLeftArrowClick() {
+    const { currentDate } = this.state;
+
     this.setState({
-      currentDate: this.props.currentDate.subtract(1, 'months'),
+      currentDate: currentDate.subtract(1, 'months'),
     });
   }
 
@@ -80,83 +85,99 @@ class BookingCalendar extends React.Component {
     this.setState({
       checkInDate: 'Add date',
       checkOutDate: 'Add date',
-    })
+    });
   }
 
   render() {
-    Modal.setAppElement('#booking-component');
-    console.log(this.props.availDates);
+    const { availDates } = this.props;
+    const { currentDate } = this.state;
+    const { checkInDate } = this.state;
+    const { checkOutDate } = this.state;
+    const { showCalendar } = this.state;
+
     return (
       <div className="booking-calendars">
 
         <div className="booking-calendars-top">
           <div role="button" className="check-in-out-boxes">
 
-            <div className="check-in-box" onClick={this.handleOpenCalendar}>
+            <div
+              className="check-in-box"
+              role="button"
+              onClick={this.handleOpenCalendar}
+            >
               <div className="check-in-box-top">
                 CHECK IN
               </div>
               <div className="check-in-box-bottom">
-                {this.state.checkInDate}
+                {checkInDate}
               </div>
             </div>
-            <div className="check-out-box" onClick={this.handleOpenCalendar}>
+            <div
+              className="check-out-box"
+              role="button"
+              onClick={this.handleOpenCalendar}
+            >
               <div className="check-out-box-top">
                 CHECKOUT
               </div>
               <div className="check-out-box-bottom">
-                {this.state.checkOutDate}
+                {checkOutDate}
               </div>
             </div>
 
             <Modal
               className="sticky-box-calendar-modal"
-              isOpen={this.state.showCalendar}
+              isOpen={showCalendar}
               handleCloseCalendar={this.handleCloseCalendar}
             >
               <div className="booking-calendar-header">
-              <div className="booking-calendar-top-description">
-                <h2>Select Dates</h2>
-                This host offers 10% off if you stay a week and a 20% monthly discount.
-              </div>
-              <div className="booking-calendar-checkin-checkout-boxes">
-              <div className="booking-calendar-check-in-box" onClick={this.handleOpenCalendar}>
-                <div className="check-in-box-top">
-                  CHECK IN
+                <div className="booking-calendar-top-description">
+                  <h2>Select Dates</h2>
+                  This host offers 10% off if you stay a week and a 20% monthly discount.
                 </div>
-                <div className="check-in-box-bottom">
-                  {this.state.checkInDate}
+                <div className="booking-calendar-checkin-checkout-boxes">
+                  <div
+                    className="booking-calendar-check-in-box"
+                    onClick={this.handleOpenCalendar}
+                  >
+                    <div className="check-in-box-top">
+                      CHECK IN
+                    </div>
+                    <div className="check-in-box-bottom">
+                      {checkInDate}
+                    </div>
+                  </div>
+                  <div
+                    className="booking-calendar-check-out-box"
+                    onClick={this.handleOpenCalendar}
+                  >
+                    <div className="check-out-box-top">
+                      CHECKOUT
+                    </div>
+                    <div className="check-out-box-bottom">
+                      {checkOutDate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="booking-calendar-check-out-box" onClick={this.handleOpenCalendar}>
-                <div className="check-out-box-top">
-                  CHECKOUT
-                </div>
-                <div className="check-out-box-bottom">
-                  {this.state.checkOutDate}
-                </div>
-              </div>
-              </div>
-
-
 
               </div>
-
 
               <div className="booking-calendar-body">
                 <div>
                   <BookingLeftCalendar
-                    availDates={this.props.availDates}
-                    currentDate={this.props.currentDate}
+                    availDates={availDates}
+                    currentDate={currentDate}
                     handleDateClick={this.leftCalendarClickHandler}
                     handleLeftArrowClick={this.handleLeftArrowClick}
+                    handleRightArrowClick={this.handleRightArrowClick}
                   />
                 </div>
 
                 <div>
                   <BookingRightCalendar
-                    availDates={this.props.availDates}
-                    currentDate={this.props.currentDate}
+                    availDates={availDates}
+                    currentDate={currentDate}
                     handleDateClick={this.rightCalendarClickHandler}
                     handleRightArrowClick={this.handleRightArrowClick}
                   />
@@ -192,5 +213,10 @@ class BookingCalendar extends React.Component {
     );
   }
 }
+
+BookingCalendar.propTypes = {
+  availDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  checkInOutDatesHandler: PropTypes.func.isRequired,
+};
 
 export default BookingCalendar;

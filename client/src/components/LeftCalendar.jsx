@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaRegKeyboard } from 'react-icons/fa';
 
@@ -12,14 +13,20 @@ class LeftCalendar extends React.Component {
   }
 
   render() {
-    const firstDay = moment(this.props.currentDate).startOf('month').day();
-    const numDaysInMonth = moment(this.props.currentDate).daysInMonth();
-    const today = moment(this.props.currentDate).format('DD');
-    const thisDate = moment(this.props.currentDate).format('MMDD');
-
-    // Avail Dates
-    const thisMonth = moment(this.props.currentDate).format('MM');
     const { availDates } = this.props;
+    const { currentDate } = this.props;
+    const { handleLeftArrowClick } = this.props;
+    const { handleRightArrowClick } = this.props;
+    const { handleClick } = this.props;
+    const { clearButtonClickHandler } = this.props;
+
+    const firstDay = moment(currentDate).startOf('month').day();
+    const numDaysInMonth = moment(currentDate).daysInMonth();
+    const today = moment(currentDate).format('DD');
+    const thisDate = moment(currentDate).format('MMDD');
+    // Avail Dates
+    const thisMonth = moment(currentDate).format('MM');
+
     const occupiedDates = [];
 
     // ***************Add this month's dates up to today to occupiedDates Array***************
@@ -68,7 +75,12 @@ class LeftCalendar extends React.Component {
             );
           }
           return (
-            <td className="valid-dates" key={index} onClick={() => this.props.handleClick(thisMonth, eachCell)}>
+            <td
+              role="gridcell"
+              className="valid-dates"
+              key={index}
+              onClick={() => handleClick(thisMonth, eachCell)}
+            >
               {eachCell}
             </td>
           );
@@ -79,13 +91,13 @@ class LeftCalendar extends React.Component {
     return (
       <div className="left-calendar">
         <div className="month">
-          <IoIosArrowBack className="left-month-arrow-btn" onClick={this.props.handleLeftArrowClick}></IoIosArrowBack>
-          <h3>{moment(this.props.currentDate).format('MMMM YYYY')}</h3>
-          <IoIosArrowForward className="left-calendar-right-arrow-btn" onClick={this.props.handleRightArrowClick}></IoIosArrowForward>
+          <IoIosArrowBack className="left-month-arrow-btn" onClick={handleLeftArrowClick} />
+          <h3>{moment(currentDate).format('MMMM YYYY')}</h3>
+          <IoIosArrowForward className="left-calendar-right-arrow-btn" onClick={handleRightArrowClick} />
         </div>
 
         <section>
-          <table className="table-body">
+          <table className="table-body" role="grid">
             <tbody>
               <tr className="day-of-the-week">
                 <th>Su</th>
@@ -105,8 +117,14 @@ class LeftCalendar extends React.Component {
             <FaRegKeyboard size={24} />
           </div>
           <div className="clear-dates-btn-container">
-            <div className="clear-dates-space"></div>
-            <button className="clear-dates-btn-hidden" onClick={this.props.clearButtonClickHandler}>Clear dates</button>
+            <div className="clear-dates-space" />
+            <button
+              className="clear-dates-btn-hidden"
+              type="button"
+              onClick={clearButtonClickHandler}
+            >
+              Clear dates
+            </button>
           </div>
 
         </div>
@@ -114,5 +132,13 @@ class LeftCalendar extends React.Component {
     );
   }
 }
+
+LeftCalendar.propTypes = {
+  availDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handleLeftArrowClick: PropTypes.func.isRequired,
+  handleRightArrowClick: PropTypes.func.isRequired,
+  clearButtonClickHandler: PropTypes.func.isRequired,
+};
 
 export default LeftCalendar;
