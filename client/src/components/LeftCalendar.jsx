@@ -102,7 +102,7 @@ class LeftCalendar extends React.Component {
         </section>
         <div className="calendar-bottom-hidden">
           <div className="keyboard-icon-hidden">
-            <FaRegKeyboard />
+            <FaRegKeyboard size={24} />
           </div>
           <div className="clear-dates-btn-container">
             <div className="clear-dates-space"></div>

@@ -59,6 +59,7 @@ class Booking extends React.Component {
       .then(({ data }) => {
         console.log('GET Request Successful From booking: ', data);
         this.setState({
+          price: data.price,
           pricePerNight: data.price,
           review: data.review,
           availDates: data.open_dates,
