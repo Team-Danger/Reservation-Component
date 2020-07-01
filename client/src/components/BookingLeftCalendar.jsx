@@ -19,19 +19,29 @@ class BookingLeftCalendar extends React.Component {
     const { handleLeftArrowClick } = this.props;
     const { handleRightArrowClick } = this.props;
     const { handleDateClick } = this.props;
+    const { selectedDates } = this.props;
 
     const firstDay = moment(currentDate).startOf('month').day();
     const numDaysInMonth = moment(currentDate).daysInMonth();
-
+    const thisDate = moment(currentDate).format('MMDD');
     const thisMonth = moment(currentDate).format('MM');
+
+    const selectedDisplayDates = [];
+    for (let i = 0; i < selectedDates.length; i++) {
+      if (thisMonth === selectedDates[i].slice(5, 7)) {
+        selectedDisplayDates.push(Number(selectedDates[i].slice(-2)));
+      }
+    }
 
     const occupiedDates = [];
     for (let i = 0; i < availDates.length; i += 1) {
+      // console.log('This is avail dates', availDates);
       if (thisMonth === availDates[i].slice(5, 7)) {
         occupiedDates.push(Number(availDates[i].slice(-2)));
       }
     }
 
+    // Generate All Number Displayed On Calendar
     const emptyCells = [];
     for (let i = 0; i < firstDay; i += 1) {
       emptyCells.push('');
@@ -57,6 +67,7 @@ class BookingLeftCalendar extends React.Component {
         tableRowsArr.push(lastRow);
       }
     });
+
     const calendarDateCells = tableRowsArr.map((eachRow, index) => (
       <tr key={index}>
         {eachRow.map((eachCell, index) => {
@@ -67,12 +78,21 @@ class BookingLeftCalendar extends React.Component {
               </td>
             );
           }
+          if (selectedDisplayDates.indexOf(eachCell) !== -1) {
+            return (
+              <td className="selected-dates" key={index}>
+                {eachCell}
+              </td>
+            );
+          }
           return (
             <td
-              className="valid-dates"
               role="gridcell"
+              className="valid-dates"
               key={index}
-              onClick={() => handleDateClick(thisMonth, eachCell)}
+              onClick={() => {
+                handleDateClick(thisMonth, eachCell);
+              }}
             >
               {eachCell}
             </td>
@@ -87,7 +107,6 @@ class BookingLeftCalendar extends React.Component {
           <IoIosArrowBack className="left-month-arrow-btn" onClick={handleLeftArrowClick} />
           <h3>{moment(currentDate).format('MMMM YYYY')}</h3>
           <IoIosArrowForward className="left-calendar-right-arrow-btn" onClick={handleRightArrowClick} />
-
         </div>
 
         <section>

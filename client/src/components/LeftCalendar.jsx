@@ -19,18 +19,23 @@ class LeftCalendar extends React.Component {
     const { handleRightArrowClick } = this.props;
     const { handleClick } = this.props;
     const { clearButtonClickHandler } = this.props;
+    const { selectedDates } = this.props;
 
     const firstDay = moment(currentDate).startOf('month').day();
     const numDaysInMonth = moment(currentDate).daysInMonth();
-    const today = moment(currentDate).format('DD');
     const thisDate = moment(currentDate).format('MMDD');
-    // Avail Dates
     const thisMonth = moment(currentDate).format('MM');
+    const today = moment(currentDate).format('DD');
 
-    const occupiedDates = [];
+    const selectedDisplayDates = [];
+    for (let i = 0; i < selectedDates.length; i++) {
+      if (thisMonth === selectedDates[i].slice(5, 7)) {
+        selectedDisplayDates.push(Number(selectedDates[i].slice(-2)));
+      }
+    }
 
     // ***************Add this month's dates up to today to occupiedDates Array***************
-
+    const occupiedDates = [];
     for (let i = 0; i < availDates.length; i += 1) {
       // console.log('This is avail dates', availDates);
       if (thisMonth === availDates[i].slice(5, 7)) {
@@ -64,6 +69,7 @@ class LeftCalendar extends React.Component {
         tableRowsArr.push(lastRow);
       }
     });
+
     const calendarDateCells = tableRowsArr.map((eachRow, index) => (
       <tr key={index}>
         {eachRow.map((eachCell, index) => {
@@ -74,12 +80,21 @@ class LeftCalendar extends React.Component {
               </td>
             );
           }
+          if (selectedDisplayDates.indexOf(eachCell) !== -1) {
+            return (
+              <td className="selected-dates" key={index}>
+                {eachCell}
+              </td>
+            );
+          }
           return (
             <td
               role="gridcell"
               className="valid-dates"
               key={index}
-              onClick={() => handleClick(thisMonth, eachCell)}
+              onClick={() => {
+                handleClick(thisMonth, eachCell);
+              }}
             >
               {eachCell}
             </td>

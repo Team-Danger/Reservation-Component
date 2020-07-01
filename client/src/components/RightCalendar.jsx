@@ -18,12 +18,19 @@ class RightCalendar extends React.Component {
     const { currentDate } = this.props;
     const { handleClick } = this.props;
     const { handleArrowClick } = this.props;
+    const { selectedDates } = this.props;
 
     const firstDay = moment(currentDate).add(1, 'months').startOf('month').day();
     const numDaysInMonth = moment(currentDate).add(1, 'months').daysInMonth();
-
-    // Avail Dates
     const thisMonth = moment(currentDate).add(1, 'months').format('MM');
+
+    const selectedDisplayDates = [];
+
+    for (let i = 0; i < selectedDates.length; i++) {
+      if (thisMonth === selectedDates[i].slice(5, 7)) {
+        selectedDisplayDates.push(Number(selectedDates[i].slice(-2)));
+      }
+    }
 
     const occupiedDates = [];
     for (let i = 0; i < availDates.length; i += 1) {
@@ -59,6 +66,7 @@ class RightCalendar extends React.Component {
         tableRowsArr.push(lastRow);
       }
     });
+
     const calendarDateCells = tableRowsArr.map((eachRow, index) => (
       <tr key={index}>
         {eachRow.map((eachCell, index) => {
@@ -69,12 +77,21 @@ class RightCalendar extends React.Component {
               </td>
             );
           }
+          if (selectedDisplayDates.indexOf(eachCell) !== -1) {
+            return (
+              <td className="selected-dates" key={index}>
+                {eachCell}
+              </td>
+            );
+          }
           return (
             <td
-              className="valid-dates"
               role="gridcell"
+              className="valid-dates"
               key={index}
-              onClick={() => handleClick(thisMonth, eachCell)}
+              onClick={() => {
+                handleClick(thisMonth, eachCell);
+              }}
             >
               {eachCell}
             </td>
@@ -82,7 +99,6 @@ class RightCalendar extends React.Component {
         })}
       </tr>
     ));
-
     return (
       <div className="right-calendar">
         <div className="month">
@@ -117,6 +133,7 @@ RightCalendar.propTypes = {
   currentDate: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
   handleArrowClick: PropTypes.func.isRequired,
+  selectedDates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default RightCalendar;

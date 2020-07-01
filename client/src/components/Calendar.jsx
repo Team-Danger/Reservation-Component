@@ -42,8 +42,9 @@ class Calendar extends React.Component {
       });
   }
 
-  calendarClickHandler(targetMonth, targetDate) {
+  calendarClickHandler(targetMonth, targetDateInput) {
     const { nextDate } = this.state;
+    let targetDate = targetDateInput;
 
     const thisYear = moment(new Date()).format('YYYY');
     if (targetDate < 10) {
@@ -61,7 +62,6 @@ class Calendar extends React.Component {
         secondDate: `${thisYear}-${targetMonth}-${targetDate}`,
       });
     }
-    console.log('firstDate: ', this.state.firstDate, 'secondDate: ', this.state.secondDate);
   }
 
   clearButtonClickHandler() {
@@ -88,6 +88,8 @@ class Calendar extends React.Component {
   render() {
     const { availDates } = this.state;
     const { currentDate } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
 
     return (
       <div className="calendar-main-container">
@@ -101,6 +103,7 @@ class Calendar extends React.Component {
           <LeftCalendar
             availDates={availDates}
             currentDate={currentDate}
+            selectedDates={[firstDate, secondDate]}
             handleClick={this.calendarClickHandler}
             handleLeftArrowClick={this.handleLeftArrowClick}
             handleRightArrowClick={this.handleRightArrowClick}
@@ -111,6 +114,7 @@ class Calendar extends React.Component {
             currentDate={currentDate}
             handleClick={this.calendarClickHandler}
             handleArrowClick={this.handleRightArrowClick}
+            selectedDates={[firstDate, secondDate]}
           />
         </div>
         <div className="calendar-bottom">

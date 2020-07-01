@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import moment from 'moment';
@@ -15,15 +16,22 @@ class BookingRightCalendar extends React.Component {
   render() {
     const { availDates } = this.props;
     const { currentDate } = this.props;
-    const { handleRightArrowClick } = this.props;
     const { handleDateClick } = this.props;
+    const { handleRightArrowClick } = this.props;
+    const { selectedDates } = this.props;
 
     const firstDay = moment(currentDate).add(1, 'months').startOf('month').day();
     const numDaysInMonth = moment(currentDate).add(1, 'months').daysInMonth();
-
-    // Avail Dates
     const thisMonth = moment(currentDate).add(1, 'months').format('MM');
-    // console.log('right cal this month: ', thisMonth);
+
+    const selectedDisplayDates = [];
+
+    for (let i = 0; i < selectedDates.length; i++) {
+      if (thisMonth === selectedDates[i].slice(5, 7)) {
+        selectedDisplayDates.push(Number(selectedDates[i].slice(-2)));
+      }
+    }
+
     const occupiedDates = [];
     for (let i = 0; i < availDates.length; i += 1) {
       if (thisMonth === availDates[i].slice(5, 7)) {
@@ -58,6 +66,7 @@ class BookingRightCalendar extends React.Component {
         tableRowsArr.push(lastRow);
       }
     });
+
     const calendarDateCells = tableRowsArr.map((eachRow, index) => (
       <tr key={index}>
         {eachRow.map((eachCell, index) => {
@@ -68,12 +77,21 @@ class BookingRightCalendar extends React.Component {
               </td>
             );
           }
+          if (selectedDisplayDates.indexOf(eachCell) !== -1) {
+            return (
+              <td className="selected-dates" key={index}>
+                {eachCell}
+              </td>
+            );
+          }
           return (
             <td
-              className="valid-dates"
               role="gridcell"
+              className="valid-dates"
               key={index}
-              onClick={() => handleDateClick(thisMonth, eachCell)}
+              onClick={() => {
+                handleDateClick(thisMonth, eachCell);
+              }}
             >
               {eachCell}
             </td>
@@ -81,7 +99,6 @@ class BookingRightCalendar extends React.Component {
         })}
       </tr>
     ));
-
     return (
       <div className="right-calendar">
         <div className="month">
@@ -91,9 +108,9 @@ class BookingRightCalendar extends React.Component {
         </div>
 
         <section>
-          <table className="table-body">
+          <table className="table-body" role="grid">
             <tbody>
-              <tr className="day-of-the-week" role="grid">
+              <tr className="day-of-the-week">
                 <th>Su</th>
                 <th>Mo</th>
                 <th>Tu</th>
@@ -113,8 +130,10 @@ class BookingRightCalendar extends React.Component {
 
 BookingRightCalendar.propTypes = {
   availDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.object.isRequired,
   handleDateClick: PropTypes.func.isRequired,
   handleRightArrowClick: PropTypes.func.isRequired,
+  selectedDates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default BookingRightCalendar;

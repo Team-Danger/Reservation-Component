@@ -12,17 +12,23 @@ class BookingCalendar extends React.Component {
     super(props);
     this.state = {
       showCalendar: false,
+      nextDate: false,
+      firstDate: '',
+      secondDate: '',
       checkInDate: 'Add date',
       checkOutDate: 'Add date',
       currentDate: moment(new Date()),
     };
     this.handleOpenCalendar = this.handleOpenCalendar.bind(this);
     this.handleCloseCalendar = this.handleCloseCalendar.bind(this);
-    this.leftCalendarClickHandler = this.leftCalendarClickHandler.bind(this);
-    this.rightCalendarClickHandler = this.rightCalendarClickHandler.bind(this);
+    this.calendarClickHandler = this.calendarClickHandler.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleClearDatesClick = this.handleClearDatesClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.calendarClickHandler();
   }
 
   handleOpenCalendar() {
@@ -42,27 +48,45 @@ class BookingCalendar extends React.Component {
     checkInOutDatesHandler(checkInDate, checkOutDate);
   }
 
-  leftCalendarClickHandler(targetMonth, targetDateInput) {
-    let targetDate = targetDateInput;
-    if (targetDate < 10) {
-      targetDate = `0${targetDate}`;
-    }
-    const thisYear = moment(new Date()).format('YYYY');
-    this.setState({
-      checkInDate: `${thisYear}-${targetMonth}-${targetDate}`,
-    });
-  }
+  calendarClickHandler(targetMonth, targetDateInput) {
+    const { nextDate } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
+    const { checkInDate } = this.state;
+    const { checkOutDate } = this.state;
 
-  rightCalendarClickHandler(targetMonth, targetDateInput) {
     let targetDate = targetDateInput;
+
+    const thisYear = moment(new Date()).format('YYYY');
     if (targetDate < 10) {
       targetDate = `0${targetDate}`;
     }
-    const thisYear = moment(new Date()).format('YYYY');
-    this.setState({
-      checkOutDate: `${thisYear}-${targetMonth}-${targetDate}`,
-    });
-    console.log('Whats being logged', `${thisYear}-${targetMonth}-${targetDate}`);
+    this.setState((prevState) => ({
+      nextDate: !prevState.nextDate,
+    }));
+    if (!nextDate) {
+      this.setState({
+        firstDate: `${thisYear}-${targetMonth}-${targetDate}`,
+      });
+    } else {
+      this.setState({
+        secondDate: `${thisYear}-${targetMonth}-${targetDate}`,
+      });
+    }
+    const tempDateOne = firstDate.replace(/-/g, '');
+    const tempDateTwo = secondDate.replace(/-/g, '');
+    const checkInDateTemp = Math.min(Number(tempDateOne), Number(tempDateTwo)).toString();
+    const checkOutDateTemp = Math.max(Number(tempDateOne), Number(tempDateTwo)).toString();
+
+    console.log(checkInDateTemp);
+    console.log(checkOutDateTemp);
+
+    if (tempDateOne.length === 8 && tempDateTwo.length === 8) {
+      this.setState({
+        checkInDate: `${checkInDateTemp.slice(0, 4)}-${checkInDateTemp.slice(4, 6)}-${checkInDateTemp.slice(6, 8)}`,
+        checkOutDate: `${checkOutDateTemp.slice(0, 4)}-${checkOutDateTemp.slice(4, 6)}-${checkOutDateTemp.slice(6, 8)}`,
+      });
+    }
   }
 
   handleRightArrowClick() {
@@ -85,6 +109,8 @@ class BookingCalendar extends React.Component {
     this.setState({
       checkInDate: 'Add date',
       checkOutDate: 'Add date',
+      firstDate: '',
+      secondDate: '',
     });
   }
 
@@ -94,6 +120,8 @@ class BookingCalendar extends React.Component {
     const { checkInDate } = this.state;
     const { checkOutDate } = this.state;
     const { showCalendar } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
 
     return (
       <div className="booking-calendars">
@@ -168,7 +196,8 @@ class BookingCalendar extends React.Component {
                   <BookingLeftCalendar
                     availDates={availDates}
                     currentDate={currentDate}
-                    handleDateClick={this.leftCalendarClickHandler}
+                    selectedDates={[firstDate, secondDate]}
+                    handleDateClick={this.calendarClickHandler}
                     handleLeftArrowClick={this.handleLeftArrowClick}
                     handleRightArrowClick={this.handleRightArrowClick}
                   />
@@ -178,7 +207,8 @@ class BookingCalendar extends React.Component {
                   <BookingRightCalendar
                     availDates={availDates}
                     currentDate={currentDate}
-                    handleDateClick={this.rightCalendarClickHandler}
+                    selectedDates={[firstDate, secondDate]}
+                    handleDateClick={this.calendarClickHandler}
                     handleRightArrowClick={this.handleRightArrowClick}
                   />
                 </div>
@@ -193,9 +223,21 @@ class BookingCalendar extends React.Component {
 
                   <div className="modal-footer-right">
                     <div className="modal-footer-clear-dates-btn-container" />
-                    <button className="modal-footer-clear-dates-btn" onClick={this.handleClearDatesClick}>Clear dates</button>
+                    <button
+                      className="modal-footer-clear-dates-btn"
+                      type="button"
+                      onClick={this.handleClearDatesClick}
+                    >
+                      Clear dates
+                    </button>
                     <div className="modal-footer-close-btn-container">
-                      <button className="modal-footer-close-btn" onClick={this.handleCloseCalendar}>Close</button>
+                      <button
+                        className="modal-footer-close-btn"
+                        type="button"
+                        onClick={this.handleCloseCalendar}
+                      >
+                        Close
+                      </button>
                     </div>
                   </div>
 

@@ -47,6 +47,13 @@ td {
   box-sizing: border-box;
 }
 
+.selected-dates {
+  color: white;
+  font-weight: bold;
+  background: black;
+  border-radius: 50%;
+}
+
 .valid-dates {
   font-weight: bold;
 }
