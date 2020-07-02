@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run seed
 
+ENV PORT=3001
+ENV DB="database"
 EXPOSE 3001
 
 CMD [ "npm", "start" ]
