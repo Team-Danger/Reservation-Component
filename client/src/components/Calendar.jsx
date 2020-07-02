@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { FaRegKeyboard } from 'react-icons/fa';
 
-import LeftCalendar from './LeftCalendar.jsx';
-import RightCalendar from './RightCalendar.jsx';
+import LeftCalendar from './LeftCalendar';
+import RightCalendar from './RightCalendar';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -13,11 +14,11 @@ class Calendar extends React.Component {
     this.state = {
       availDates: [],
       currentDate: moment(new Date()),
-      leftCalendarSelectdDate: '',
-      rightCalendarSelectedDate: '',
+      firstDate: '',
+      secondDate: '',
+      nextDate: false,
     };
-    this.leftCalendarClickHandler = this.leftCalendarClickHandler.bind(this);
-    this.rightCalendarClickHandler = this.rightCalendarClickHandler.bind(this);
+    this.calendarClickHandler = this.calendarClickHandler.bind(this);
     this.clearButtonClickHandler = this.clearButtonClickHandler.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
@@ -29,7 +30,7 @@ class Calendar extends React.Component {
 
   fetchDatesForSelectedListingID() {
     const { listingID } = this.props;
-    return axios.get(`/api/${listingID}`)
+    return axios.get(`/api/reservation/${listingID}`)
       .then(({ data }) => {
         console.log('GET Request Successful: ', data);
         this.setState({
@@ -41,38 +42,55 @@ class Calendar extends React.Component {
       });
   }
 
-  leftCalendarClickHandler(targetMonth, targetDate) {
-    this.setState({
-      leftCalendarSelectdDate: `${targetMonth}-${targetDate}`,
-    });
-  }
+  calendarClickHandler(targetMonth, targetDateInput) {
+    const { nextDate } = this.state;
+    let targetDate = targetDateInput;
 
-  rightCalendarClickHandler(targetMonth, targetDate) {
-    this.setState({
-      rightCalendarSelectedDate: `${targetMonth}-${targetDate}`,
-    });
+    const thisYear = moment(new Date()).format('YYYY');
+    if (targetDate < 10) {
+      targetDate = `0${targetDate}`;
+    }
+    this.setState((prevState) => ({
+      nextDate: !prevState.nextDate,
+    }));
+    if (!nextDate) {
+      this.setState({
+        firstDate: `${thisYear}-${targetMonth}-${targetDate}`,
+      });
+    } else {
+      this.setState({
+        secondDate: `${thisYear}-${targetMonth}-${targetDate}`,
+      });
+    }
   }
 
   clearButtonClickHandler() {
     this.setState({
-      rightCalendarSelectedDate: '',
-      leftCalendarClickHandler: '',
+      firstDate: '',
+      secondDate: '',
     });
   }
 
   handleRightArrowClick() {
+    const { currentDate } = this.state;
     this.setState({
-      currentDate: moment(this.state.currentDate).add(1, 'months'),
+      currentDate: moment(currentDate).add(1, 'months'),
     });
   }
 
   handleLeftArrowClick() {
+    const { currentDate } = this.state;
     this.setState({
-      currentDate: this.state.currentDate.subtract(1, 'months'),
+      currentDate: moment(currentDate).subtract(1, 'months'),
     });
   }
 
   render() {
+    const { availDates } = this.state;
+    const { currentDate } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
+
     return (
       <div className="calendar-main-container">
         <div className="calendar-top-descrpiton">
@@ -83,14 +101,21 @@ class Calendar extends React.Component {
         </div>
         <div className="calendars">
           <LeftCalendar
-            availDates={this.state.availDates}
-            currentDate={this.state.currentDate}
-            handleClick={this.leftCalendarClickHandler}
+            availDates={availDates}
+            currentDate={currentDate}
+            selectedDates={[firstDate, secondDate]}
+            handleClick={this.calendarClickHandler}
             handleLeftArrowClick={this.handleLeftArrowClick}
             handleRightArrowClick={this.handleRightArrowClick}
             clearButtonClickHandler={this.clearButtonClickHandler}
           />
-          <RightCalendar availDates={this.state.availDates} currentDate={this.state.currentDate} handleClick={this.rightCalendarClickHandler} handleArrowClick={this.handleRightArrowClick} />
+          <RightCalendar
+            availDates={availDates}
+            currentDate={currentDate}
+            handleClick={this.calendarClickHandler}
+            handleArrowClick={this.handleRightArrowClick}
+            selectedDates={[firstDate, secondDate]}
+          />
         </div>
         <div className="calendar-bottom">
           <div className="keyboard-icon">
@@ -98,12 +123,22 @@ class Calendar extends React.Component {
           </div>
           <div className="clear-dates-btn-container">
             <div className="clear-dates-space" />
-            <button className="clear-dates-btn" onClick={this.clearButtonClickHandler}>Clear dates</button>
+            <button
+              className="clear-dates-btn"
+              type="button"
+              onClick={this.clearButtonClickHandler}
+            >
+              Clear dates
+            </button>
           </div>
         </div>
       </div>
     );
   }
 }
+
+Calendar.propTypes = {
+  listingID: PropTypes.string.isRequired,
+};
 
 export default Calendar;

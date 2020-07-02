@@ -17,6 +17,8 @@ module.exports = {
   },
   plugins: [
     'react',
+    'jsx-a11y',
+    'import',
   ],
   ignorePatterns: ['client/dist/*', 'node_modules/*'],
   rules: {

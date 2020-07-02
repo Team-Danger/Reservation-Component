@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { IoIosArrowDown } from 'react-icons/io';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
@@ -26,63 +27,114 @@ class Guests extends React.Component {
   }
 
   handleDropdownMenuClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       showDropdown: !prevState.showDropdown,
     }));
-    this.props.guestsAndPriceInfoHandler(this.state.adults, this.state.children, this.state.infants);
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleAdultMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       adults: Math.max(prevState.adults - 1, 1),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleAdultPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       adults: prevState.adults + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleChildrenMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       children: Math.max(prevState.children - 1, 0),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleChildrenPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       children: prevState.children + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleInfantsMinusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       infants: Math.max(prevState.infants - 1, 0),
       total: Math.max(prevState.total - 1, 1),
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   handleInfantsPlusIconClick() {
+    const { guestsAndPriceInfoHandler } = this.props;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+
     this.setState((prevState) => ({
       infants: prevState.infants + 1,
       total: prevState.total + 1,
     }));
+    guestsAndPriceInfoHandler(adults, children, infants);
   }
 
   render() {
+    const { showDropdown } = this.state;
+    const { adults } = this.state;
+    const { children } = this.state;
+    const { infants } = this.state;
+    const { total } = this.state;
+
     return (
       <div className="guests-box">
         <div className="guests-box-header">
           GUESTS
         </div>
-        <div className="guests-box-bottom" role="button" onClick={this.handleDropdownMenuClick}>
+        <div
+          className="guests-box-bottom"
+          role="button"
+          onClick={this.handleDropdownMenuClick}
+        >
           <div className="guests-box-info">
-            {this.state.total}
+            {total}
             {' '}
             guests
           </div>
@@ -93,7 +145,7 @@ class Guests extends React.Component {
 
         </div>
         <div className="guests-dropdown-menu-container">
-          {this.state.showDropdown
+          {showDropdown
             ? (
               <div className="guests-dropdown-menu">
 
@@ -103,7 +155,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleAdultMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.adults}</div>
+                    <div className="guests-dropdown-number">{adults}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleAdultPlusIconClick} /></div>
                   </div>
                 </div>
@@ -119,7 +171,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleChildrenMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.children}</div>
+                    <div className="guests-dropdown-number">{children}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleChildrenPlusIconClick} /></div>
                   </div>
                 </div>
@@ -135,7 +187,7 @@ class Guests extends React.Component {
                   </div>
                   <div className="guests-dropdown-interactive">
                     <div className="guests-dropdown-minus-icon"><AiOutlineMinusCircle size={20} onClick={this.handleInfantsMinusIconClick} /></div>
-                    <div className="guests-dropdown-number">{this.state.infants}</div>
+                    <div className="guests-dropdown-number">{infants}</div>
                     <div className="guests-dropdown-plus-icon"><AiOutlinePlusCircle size={20} onClick={this.handleInfantsPlusIconClick} /></div>
                   </div>
                 </div>
@@ -143,7 +195,13 @@ class Guests extends React.Component {
                   <div className="guests-dropdown-info-text">Infants don’t count toward the number of guests.</div>
                 </div>
                 <div className="guests-dropdown-close-btn-container">
-                  <button onClick={this.handleDropdownMenuClick} className="guests-dropdown-close-btn">Close</button>
+                  <button
+                    onClick={this.handleDropdownMenuClick}
+                    type="button"
+                    className="guests-dropdown-close-btn"
+                  >
+                    Close
+                  </button>
                 </div>
 
               </div>
@@ -156,5 +214,9 @@ class Guests extends React.Component {
     );
   }
 }
+
+Guests.propTypes = {
+  guestsAndPriceInfoHandler: PropTypes.func.isRequired,
+};
 
 export default Guests;

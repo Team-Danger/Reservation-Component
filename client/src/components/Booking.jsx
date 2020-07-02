@@ -1,17 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import moment from 'moment';
+import PropTypes from 'prop-types';
 
-import BookingCalendar from './BookingCalendar.jsx';
-import Price from './Price.jsx';
-import Review from './Review.jsx';
-import Guests from './Guests.jsx';
+import BookingCalendar from './BookingCalendar';
+import Price from './Price';
+import Review from './Review';
+import Guests from './Guests';
 
 class Booking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pricePerNight: '',
+      pricePerNight: 0,
       price: 0,
       guests: {
         total: 1,
@@ -19,11 +19,10 @@ class Booking extends React.Component {
         children: 0,
         infants: 0,
       },
-      review: '',
+      review: 0,
       availDates: [],
       checkInDate: '',
       checkOutDate: '',
-      currentDate: moment(new Date()),
     };
     this.guestsAndPriceInfoHandler = this.guestsAndPriceInfoHandler.bind(this);
     this.checkInOutDatesHandler = this.checkInOutDatesHandler.bind(this);
@@ -34,6 +33,9 @@ class Booking extends React.Component {
   }
 
   guestsAndPriceInfoHandler(adults, children, infants) {
+    const { pricePerNight } = this.state;
+    const { guests } = this.state;
+
     this.setState({
       guests: {
         total: adults + children + infants,
@@ -41,7 +43,9 @@ class Booking extends React.Component {
         children,
         infants,
       },
-      price: this.state.pricePerNight * (adults + children / 2),
+    });
+    this.setState({
+      price: pricePerNight * guests.total,
     });
   }
 
@@ -55,10 +59,12 @@ class Booking extends React.Component {
 
   fetchDatesForSelectedListingID() {
     const { listingID } = this.props;
-    return axios.get(`/api/${listingID}`)
+
+    return axios.get(`/api/reservation/${listingID}`)
       .then(({ data }) => {
         console.log('GET Request Successful From booking: ', data);
         this.setState({
+          price: data.price,
           pricePerNight: data.price,
           review: data.review,
           availDates: data.open_dates,
@@ -70,31 +76,38 @@ class Booking extends React.Component {
   }
 
   sendReservationInfo() {
+    const { listingID } = this.props;
+
     axios.post(`/api/${listingID}`)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
+    const { price } = this.state;
+    const { review } = this.state;
+    const { availDates } = this.state;
+    const { currentDate } = this.state;
+
     return (
       <div className="sticky-box">
         <div className="sticky-box-static-top">
           <div className="price">
-            <Price price={this.state.price} />
+            <Price price={price} />
           </div>
           <div className="review">
-            <Review review={this.state.review} />
+            <Review review={review} />
           </div>
         </div>
         <div className="sticky-box-clickable-boxes">
           <div className="sticky-box-calendars">
             <BookingCalendar
-              availDates={this.state.availDates}
-              currentDate={this.state.currentDate}
+              availDates={availDates}
+              currentDate={currentDate}
               checkInOutDatesHandler={this.checkInOutDatesHandler}
             />
           </div>
@@ -105,11 +118,20 @@ class Booking extends React.Component {
         </div>
 
         <div className="sticky-box-availability-btn-container">
-          <button className="sticky-box-availability-btn">Check Availability</button>
+          <button
+            type="submit"
+            className="sticky-box-availability-btn"
+          >
+            Check Availability
+          </button>
         </div>
       </div>
     );
   }
 }
+
+Booking.propTypes = {
+  listingID: PropTypes.string.isRequired,
+};
 
 export default Booking;

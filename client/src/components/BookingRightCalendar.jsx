@@ -1,13 +1,11 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { IoIosArrowForward } from 'react-icons/io';
 
-class RightCalendar extends React.Component {
+class BookingRightCalendar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -16,14 +14,24 @@ class RightCalendar extends React.Component {
   }
 
   render() {
-    const firstDay = moment(this.props.currentDate).add(1, 'months').startOf('month').day();
-    const numDaysInMonth = moment(this.props.currentDate).add(1, 'months').daysInMonth();
-
-    // Avail Dates
-    const thisMonth = moment(this.props.currentDate).add(1, 'months').format('MM');
-    // console.log('right cal this month: ', thisMonth);
-
     const { availDates } = this.props;
+    const { currentDate } = this.props;
+    const { handleDateClick } = this.props;
+    const { handleRightArrowClick } = this.props;
+    const { selectedDates } = this.props;
+
+    const firstDay = moment(currentDate).add(1, 'months').startOf('month').day();
+    const numDaysInMonth = moment(currentDate).add(1, 'months').daysInMonth();
+    const thisMonth = moment(currentDate).add(1, 'months').format('MM');
+
+    const selectedDisplayDates = [];
+
+    for (let i = 0; i < selectedDates.length; i++) {
+      if (thisMonth === selectedDates[i].slice(5, 7)) {
+        selectedDisplayDates.push(Number(selectedDates[i].slice(-2)));
+      }
+    }
+
     const occupiedDates = [];
     for (let i = 0; i < availDates.length; i += 1) {
       if (thisMonth === availDates[i].slice(5, 7)) {
@@ -58,6 +66,7 @@ class RightCalendar extends React.Component {
         tableRowsArr.push(lastRow);
       }
     });
+
     const calendarDateCells = tableRowsArr.map((eachRow, index) => (
       <tr key={index}>
         {eachRow.map((eachCell, index) => {
@@ -68,25 +77,38 @@ class RightCalendar extends React.Component {
               </td>
             );
           }
+          if (selectedDisplayDates.indexOf(eachCell) !== -1) {
+            return (
+              <td className="selected-dates" key={index}>
+                {eachCell}
+              </td>
+            );
+          }
           return (
-            <td className="valid-dates" key={index} onClick={() => this.props.handleDateClick(thisMonth, eachCell)}>
+            <td
+              role="gridcell"
+              className="valid-dates"
+              key={index}
+              onClick={() => {
+                handleDateClick(thisMonth, eachCell);
+              }}
+            >
               {eachCell}
             </td>
           );
         })}
       </tr>
     ));
-
     return (
       <div className="right-calendar">
         <div className="month">
           <div className="right-month-left-btn" />
-          <h3>{moment(this.props.currentDate).add(1, 'months').format('MMMM YYYY')}</h3>
-          <IoIosArrowForward className="right-month-arrow-btn" onClick={this.props.handleRightArrowClick} />
+          <h3>{moment(currentDate).add(1, 'months').format('MMMM YYYY')}</h3>
+          <IoIosArrowForward className="right-month-arrow-btn" onClick={handleRightArrowClick} />
         </div>
 
         <section>
-          <table className="table-body">
+          <table className="table-body" role="grid">
             <tbody>
               <tr className="day-of-the-week">
                 <th>Su</th>
@@ -106,4 +128,12 @@ class RightCalendar extends React.Component {
   }
 }
 
-export default RightCalendar;
+BookingRightCalendar.propTypes = {
+  availDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.object.isRequired,
+  handleDateClick: PropTypes.func.isRequired,
+  handleRightArrowClick: PropTypes.func.isRequired,
+  selectedDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default BookingRightCalendar;
