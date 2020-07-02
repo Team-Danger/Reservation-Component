@@ -8,6 +8,7 @@
     "test": "jest",
     "test-open": "jest --forceExit --detectOpenHandles",
     "start": "node ./server/server.js",
+    "seed:start": "npm run seed && node ./server/server.js",
     "build": "webpack",
     "watch": "webpack --watch"
   },

@@ -8,10 +8,8 @@ RUN npm install
 
 COPY . .
 
-RUN npm run seed
-
 ENV PORT=3001
-ENV DB="database"
+ENV DB="mongo"
 EXPOSE 3001
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "seed:start" ]
