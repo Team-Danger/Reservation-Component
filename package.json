@@ -7,7 +7,7 @@
     "seed": "node ./database/seed.js",
     "test": "jest",
     "test-open": "jest --forceExit --detectOpenHandles",
-    "server": "node ./server/server.js",
+    "start": "node ./server/server.js",
     "build": "webpack",
     "watch": "webpack --watch"
   },
