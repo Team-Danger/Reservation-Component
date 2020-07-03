@@ -4,9 +4,13 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+RUN npm install
+
 COPY . .
 
-RUN npm install
+ENV PORT="3001"
+
+ENV DB="mongo"
 
 EXPOSE 3001
 
