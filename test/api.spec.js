@@ -15,7 +15,7 @@ describe('API GET Request Unit Test ', () => {
         reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
       }
     });
-    return request(app).get('/api/001/reservation')
+    return request(app).get('/api/reservation/001')
       .then((res) => {
         expect(res.statusCode).toBe(200);
         expect(res.body.listing_id).toBe('001');
@@ -37,7 +37,7 @@ describe('API GET Request Unit Test ', () => {
         reject(new Error(`Mock Error From api.spec.js. listing_id : ${listing_id}`));
       }
     });
-    return request(app).get('/api/010/reservation')
+    return request(app).get('/api/reservation/010')
       .then((res) => {
         expect(res.statusCode).toBe(200);
         expect(res.body.listing_id).toBe('010');
@@ -60,7 +60,7 @@ describe('API GET Request Unit Test ', () => {
       }
     });
 
-    return request(app).get('/api/100/reservation')
+    return request(app).get('/api/reservation/100')
       .then((res) => {
         expect(res.statusCode).toBe(200);
         expect(res.body.listing_id).toBe('100');
@@ -72,22 +72,22 @@ describe('API GET Request Unit Test ', () => {
       });
   });
 
-  it('Should return 500 when invalid GET request with string is made', async () => request(app).get('/api/blueberrySoju/reservation')
+  it('Should return 500 when invalid GET request with string is made', async () => request(app).get('/api/reservation/blueberrySoju')
     .then((res) => {
       expect(res.statusCode).toBe(500);
     }));
 
-  it('Should return 500 when invalid GET request with number is made', async () => request(app).get('/api/45647891328/reservation')
+  it('Should return 500 when invalid GET request with number is made', async () => request(app).get('/api/reservation/45647891328')
     .then((res) => {
       expect(res.statusCode).toBe(500);
     }));
 
-  it('Should return 500 when invalid GET request with number and string is made', async () => request(app).get('/api/a45f6478y91d32az8/reservation')
+  it('Should return 500 when invalid GET request with number and string is made', async () => request(app).get('/api/reservation/a45f6478y91d32az8')
     .then((res) => {
       expect(res.statusCode).toBe(500);
     }));
 
-  it('Should return 404 when invalid GET request with unknown URL is made (test 1)', async () => request(app).get('/api/hello')
+  it('Should return 404 when invalid GET request with unknown URL is made (test 1)', async () => request(app).get('/api/hello/reservation')
     .then((res) => {
       expect(res.statusCode).toBe(404);
     }));

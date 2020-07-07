@@ -16,8 +16,8 @@ class BookingCalendar extends React.Component {
     this.state = {
       showCalendar: false,
       nextDate: false,
-      firstDate: '',
-      secondDate: '',
+      firstDate: '0',
+      secondDate: '0',
       checkInDate: 'Add date',
       checkOutDate: 'Add date',
       currentDate: moment(new Date()),
@@ -28,6 +28,8 @@ class BookingCalendar extends React.Component {
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleClearDatesClick = this.handleClearDatesClick.bind(this);
+    this.displayDates = this.displayDates.bind(this);
+    this.showDate = this.showDate.bind(this);
   }
 
   componentDidMount() {
@@ -58,28 +60,65 @@ class BookingCalendar extends React.Component {
     const { checkInDate } = this.state;
     const { checkOutDate } = this.state;
 
+    const thisYear = moment(new Date()).format('YYYY');
+
     let targetDate = targetDateInput;
 
-    const thisYear = moment(new Date()).format('YYYY');
     if (targetDate < 10) {
       targetDate = `0${targetDate}`;
     }
-    this.setState((prevState) => ({
-      nextDate: !prevState.nextDate,
-    }));
-    if (!nextDate) {
-      this.setState({
-        firstDate: `${thisYear}-${targetMonth}-${targetDate}`,
-      });
-    } else {
-      this.setState({
-        secondDate: `${thisYear}-${targetMonth}-${targetDate}`,
-      });
+
+    let selectedDate = `${thisYear}-${targetMonth}-${targetDate}`;
+
+    if (targetDate === undefined) {
+      selectedDate = '0';
     }
+
+    console.log('From Up', selectedDate); // Updates in real time
+
+    this.displayDates(selectedDate);
+  }
+
+  displayDates(selectedDate) {
+    const { nextDate } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
+    const { checkInDate } = this.state;
+    const { checkOutDate } = this.state;
+    let date = selectedDate;
+
+    if (nextDate) {
+      this.setState((prevState) => ({
+        firstDate: date,
+        nextDate: !prevState.nextDate,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        secondDate: date,
+        nextDate: !prevState.nextDate,
+      }));
+    }
+    this.showDate(date);
+  }
+
+  showDate(date) {
+    console.log('Log of first date state from the third layer', this.state.firstDate)
+    console.log('Log of second date state from the third layer', this.state.secondDate)
+
+    const { nextDate } = this.state;
+    const { firstDate } = this.state;
+    const { secondDate } = this.state;
+    const { checkInDate } = this.state;
+    const { checkOutDate } = this.state;
+
     const tempDateOne = firstDate.replace(/-/g, '');
+    console.log('TempDateOne in BookingCalendar.jsx :', tempDateOne);
     const tempDateTwo = secondDate.replace(/-/g, '');
+    console.log('tempDateTwo in BookingCalendar.jsx :', tempDateTwo);
+
     const checkInDateTemp = Math.min(Number(tempDateOne), Number(tempDateTwo)).toString();
     const checkOutDateTemp = Math.max(Number(tempDateOne), Number(tempDateTwo)).toString();
+    console.log(checkInDateTemp, checkOutDateTemp);
 
     if (tempDateOne.length === 8 && tempDateTwo.length === 8) {
       this.setState({
