@@ -27,7 +27,7 @@ app.get('/api/reservation/:id', (req, res) => {
     });
 });
 
-app.put('api/:id/', (req, res) => {
+app.put('api/reserve/:id/', (req, res) => {
   const targetId = req.params.id;
   Listings.updateOne({ listing_id: targetId })
     .exec()

@@ -26,6 +26,7 @@ class Booking extends React.Component {
     };
     this.guestsAndPriceInfoHandler = this.guestsAndPriceInfoHandler.bind(this);
     this.checkInOutDatesHandler = this.checkInOutDatesHandler.bind(this);
+    this.sendReservationInfo = this.sendReservationInfo.bind(this);
   }
 
   componentDidMount() {
@@ -91,7 +92,6 @@ class Booking extends React.Component {
     const { price } = this.state;
     const { review } = this.state;
     const { availDates } = this.state;
-    const { currentDate } = this.state;
 
     return (
       <div className="sticky-box">
@@ -107,7 +107,6 @@ class Booking extends React.Component {
           <div className="sticky-box-calendars">
             <BookingCalendar
               availDates={availDates}
-              currentDate={currentDate}
               checkInOutDatesHandler={this.checkInOutDatesHandler}
             />
           </div>
@@ -121,6 +120,7 @@ class Booking extends React.Component {
           <button
             type="submit"
             className="sticky-box-availability-btn"
+            onClick={this.sendReservationInfo}
           >
             Check Availability
           </button>
