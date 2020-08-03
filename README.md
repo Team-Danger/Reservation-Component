@@ -7,23 +7,30 @@
 
 
 ## Technologies
-> **This service is created with :**
-- Node Package Manager    v6.14.5
-- React.js / React DOM    v16.13.1
-- Node.js    v12.18.2
-- Moment.js    v2.27.0
-- MongoDB    v4.2.7
-- Mongoose    v5.9.19
+> This service is created with :
+- **Node Package Manager**    v6.14.5
+- **React.js / React DOM**    v16.13.1
+- **Node.js**    v12.18.2
+- **Moment.js**    v2.27.0
+- **MongoDB**    v4.2.7
+- **Mongoose**    v5.9.19
 
 
 ## Getting Started
-> A version of this service is available on <a href="https://hub.docker.com/repository/docker/wpark95/fec/" target="_blank">Docker Hub</a>, which can be used for easier deployment if necessary
+> A version of this service is available on <a href="https://hub.docker.com/repository/docker/wpark95/fec/" target="_blank">Docker Hub</a>, which can be used for easier **deployment** if necessary
 
-**To Install Required Dependencies :**
+To Install Required Dependencies :
 - **npm install**
+
+To seed example data to the database :
+- **npm run seed**
+
+To compile the client bundle using **Webpack** :
 - **npm run watch**
+
+To start the server using **Nodemon**
 - **npm run server**
-  - Originally, the server is set to use port 3001
+  - Note: originally, the server is set to use port 3001
 
 
 ## Sister Components of Latitude
