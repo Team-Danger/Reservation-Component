@@ -7,7 +7,7 @@
     "seed": "node ./database/seed.js",
     "test": "jest",
     "test-open": "jest --forceExit --detectOpenHandles",
-    "server": "node ./server/server.js",
+    "server": "nodemon ./server/server.js",
     "start": "npm run seed & node ./server/server.js",
     "build": "webpack",
     "watch": "webpack --watch"
@@ -34,6 +34,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
     "mongoose": "^5.9.19",
+    "nodemon": "^2.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
