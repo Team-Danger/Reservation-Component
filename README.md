@@ -1,5 +1,6 @@
 # Latitude
-> **Latitude** is an open source web application that provides lodging and reservation services.
+
+> **Latitude** is an open source web application that provides lodging and reservation services
 
 > **This particular service** is a part of Latitude that provides reservation services through a calendar and a floating box
 
@@ -19,18 +20,18 @@
 ## Getting Started
 > A version of this service is available on <a href="https://hub.docker.com/repository/docker/wpark95/fec/" target="_blank">Docker Hub</a>, which can be used for easier **deployment** if necessary
 
-To **Install Required Dependencies** :
-- **npm install**
+- To **Install Required Dependencies** :
+  - **npm install**
 
-To **seed example data** to the database :
-- **npm run seed**
+- To **seed example data** to the database :
+  - **npm run seed**
 
-To compile the client bundle using **Webpack** :
-- **npm run watch**
+- To compile the client bundle using **Webpack** :
+  - **npm run watch**
 
-To start the server using **Nodemon** :
-- **npm run server**
-  - Note: originally, the server is set to use port 3001
+- To start the server using **Nodemon** :
+  - **npm run server**
+    - Note: originally, the server is set to use **port 3001**
 
 
 ## Sister Components of Latitude
