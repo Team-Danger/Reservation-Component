@@ -1,8 +1,8 @@
 # Latitude
 
-**Latitude** is an open source web application that provides lodging and reservation services
+**Latitude** is an open source web application that provides lodging and reservation services.
 
-> **This particular service** is a part of Latitude that provides reservation services through a calendar and a floating box
+> **This particular service** is a part of Latitude that provides reservation service through a calendar and a floating box.
 
 ![Complete Component](https://github.com/Team-Danger/FEC-Reservation-Component/blob/master/Screenshot-20200616123502-1424x511.png?raw=true)
 
@@ -19,6 +19,9 @@
 
 ## Getting Started
 > A version of this service is available on <a href="https://hub.docker.com/repository/docker/wpark95/fec/" target="_blank">Docker Hub</a>, which can be used for easier **deployment** if necessary
+
+- **Install MongoDB** :
+  - Follow the instructions on official <a href="https://docs.mongodb.com/manual/administration/install-community/" target="_blank">MongoDB documentation</a> to install the right version of MongoDB for your OS
 
 - To **Install Required Dependencies** :
   - **npm install**
