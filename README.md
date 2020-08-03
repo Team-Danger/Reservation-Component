@@ -1,6 +1,6 @@
 # Latitude
 
-> **Latitude** is an open source web application that provides lodging and reservation services
+**Latitude** is an open source web application that provides lodging and reservation services
 
 > **This particular service** is a part of Latitude that provides reservation services through a calendar and a floating box
 
