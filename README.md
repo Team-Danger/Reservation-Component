@@ -19,16 +19,16 @@
 ## Getting Started
 > A version of this service is available on <a href="https://hub.docker.com/repository/docker/wpark95/fec/" target="_blank">Docker Hub</a>, which can be used for easier **deployment** if necessary
 
-To Install Required Dependencies :
+To **Install Required Dependencies** :
 - **npm install**
 
-To seed example data to the database :
+To **seed example data** to the database :
 - **npm run seed**
 
 To compile the client bundle using **Webpack** :
 - **npm run watch**
 
-To start the server using **Nodemon**
+To start the server using **Nodemon** :
 - **npm run server**
   - Note: originally, the server is set to use port 3001
 
