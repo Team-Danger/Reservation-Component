@@ -90,7 +90,7 @@ class Calendar extends React.Component {
     const { currentDate } = this.state;
     const { firstDate } = this.state;
     const { secondDate } = this.state;
-
+    console.log('what the hell did i make', availDates)
     return (
       <div className="calendar-main-container">
         <div className="calendar-top-descrpiton">

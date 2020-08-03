@@ -1,8 +1,12 @@
-# FEC-Reservation-Component
-This is the reservation component which contains a calendar and a floating box with check availability functionality. The calendar and the floating box are coupled and change in one component affects the other.
+# Latitude
 
-Below is what the component will look like ideally (hopefully):
+> Latitude is an open source web application that provides lodging and reservation services
+> This particular service is a part of Latitude that provides reservation services through a calendar and a floating box
 
-![alt text](https://github.com/Team-Danger/FEC-Reservation-Component/blob/master/Screenshot-20200616123502-1424x511.png?raw=true)
+![Complete Component](https://github.com/Team-Danger/FEC-Reservation-Component/blob/master/Screenshot-20200616123502-1424x511.png?raw=true)
 
-- Will Park
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
