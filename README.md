@@ -1,8 +1,8 @@
-# Latitude
+# HomeAway
 
-**Latitude** is an open source web application that provides lodging and reservation services.
+**HomeAway** is an open source web application that provides lodging and reservation services.
 
-> **This particular service** is a part of Latitude that provides reservation service through a calendar and a floating box.
+> **This particular service** is a part of HomeAway that provides reservation service through a calendar and a floating box.
 
 ![Complete Component](https://github.com/Team-Danger/FEC-Reservation-Component/blob/master/Screenshot-20200616123502-1424x511.png?raw=true)
 
@@ -37,7 +37,7 @@
     - Note: originally, the server is set to use **port 3001**
 
 
-## Sister Components of Latitude
+## Sister Components of HomeAway
 - <a href="https://github.com/Team-Danger/FEC-Reviews-Component" target="_blank">Reviews Component</a> by Janet Zheng
 - <a href="https://github.com/Team-Danger/FEC-Description-Component" target="_blank">Description Component</a> by Paul O'Day
 
